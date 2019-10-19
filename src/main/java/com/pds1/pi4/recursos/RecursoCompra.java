@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pds1.pi4.dto.CompraDTO;
 import com.pds1.pi4.entidades.Compra;
 import com.pds1.pi4.servicos.ServicoCompra;
 
@@ -20,15 +21,15 @@ public class RecursoCompra {
 	private ServicoCompra servCompra;
 	
 	@GetMapping
-	public ResponseEntity<List<Compra>> buscar(){
+	public ResponseEntity<List<CompraDTO>> buscar(){
 		
-		List<Compra> list = servCompra.buscar();
+		List<CompraDTO> list = servCompra.buscar();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Compra> buscarId(@PathVariable Long id){
-		Compra obj = servCompra.buscarId(id);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<CompraDTO> buscarId(@PathVariable Long id){
+		CompraDTO dto = servCompra.buscarId(id);
+		return ResponseEntity.ok().body(dto);
 	}
 }

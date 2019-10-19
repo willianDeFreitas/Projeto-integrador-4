@@ -10,9 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Usuario implements Serializable {
@@ -26,11 +23,11 @@ private static final long serialVersionUID = 1L;
 	private String setor;
 	private String senha;
 	
-	@JsonIgnore
+	
 	@OneToMany(mappedBy = "usuario")
 	private List<Compra> compras = new ArrayList<>();
 	
-	@JsonIgnore
+
 	@OneToMany(mappedBy = "usuario")
 	private List<Venda> venda = new ArrayList<>();
 	

@@ -5,7 +5,7 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.pds1.pi4.entidades.pk.ItemVendaPk;
 
 @Entity
@@ -30,7 +30,7 @@ public class ItemVenda implements Serializable {
 		this.precoItemV = precoItemV;
 	}
 
-	@JsonIgnore
+	
 	public Venda getVenda() {
 		return id.getVenda();
 	}

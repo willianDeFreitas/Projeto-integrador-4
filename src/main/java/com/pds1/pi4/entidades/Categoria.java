@@ -11,8 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
 public class Categoria implements Serializable {
@@ -23,10 +23,10 @@ public class Categoria implements Serializable {
 	private Long id;
 	private String nome;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'z'", timezone = "GMT")
+	
 	private Instant dataReg;
 	
-	@JsonIgnore
+	
 	@OneToMany(mappedBy = "categoria")
 	private Set<Produto> produtos = new HashSet<>();
 

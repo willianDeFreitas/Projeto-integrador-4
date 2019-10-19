@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pds1.pi4.dto.VendaDTO;
 import com.pds1.pi4.entidades.Venda;
 import com.pds1.pi4.servicos.ServicoVenda;
 
@@ -20,15 +21,15 @@ public class RecursoVenda {
 	private ServicoVenda servVenda;
 	
 	@GetMapping
-	public ResponseEntity<List<Venda>> buscar(){
+	public ResponseEntity<List<VendaDTO>> buscar(){
 		
-		List<Venda> list = servVenda.buscar();
+		List<VendaDTO> list = servVenda.buscar();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Venda> buscarId(@PathVariable Long id){
-		Venda obj = servVenda.buscarId(id);
-		return ResponseEntity.ok().body(obj);
+	public ResponseEntity<VendaDTO> buscarId(@PathVariable Long id){
+		VendaDTO dto = servVenda.buscarId(id);
+		return ResponseEntity.ok().body(dto);
 	}
 }

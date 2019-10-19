@@ -13,8 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Produto implements Serializable {
@@ -27,8 +26,6 @@ public class Produto implements Serializable {
 	private String vol;
 	private double qtd;
 	private double preco;
-
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'z'", timezone = "GMT")
 	private Instant datareg;
 	
 	@ManyToOne
@@ -111,7 +108,7 @@ public class Produto implements Serializable {
 		this.categoria = categoria;
 	}
 
-	@JsonIgnore
+	
 	public Set<Compra> getCompras(){
 		Set<Compra> set = new HashSet<>();
 		for(ItemCompra ic : itemsCompra) {

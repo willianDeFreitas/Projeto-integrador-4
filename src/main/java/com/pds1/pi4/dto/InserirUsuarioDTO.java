@@ -31,6 +31,7 @@ public class InserirUsuarioDTO implements Serializable{
 		this.nome = objUs.getNome();
 		this.email = objUs.getEmail();
 		this.setor = objUs.getSetor();
+		this.senha = objUs.getSenha();
 	}
 
 	public Long getId() {
