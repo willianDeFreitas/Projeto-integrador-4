@@ -1,26 +1,37 @@
 package com.pds1.pi4.entidades;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 @Entity
-public class Usuario implements Serializable {
+public class Usuario implements UserDetails {
 private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
+	
+	@Column(unique = true)
 	private String email;
-	private String setor;
 	private String senha;
 	
 	
@@ -32,16 +43,20 @@ private static final long serialVersionUID = 1L;
 	private List<Venda> venda = new ArrayList<>();
 	
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "tb_usuario_funcao",joinColumns = @JoinColumn(name = "usuario_id"),
+	inverseJoinColumns = @JoinColumn(name = "funcao_id"))
+	private Set<Funcao> funcoes = new HashSet<>();
+	
 	public Usuario() {
 		
 	}
 
-	public Usuario(Long id, String nome, String email, String setor, String senha) {
+	public Usuario(Long id, String nome, String email, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
-		this.setor = setor;
 		this.senha = senha;
 		
 	}
@@ -69,14 +84,6 @@ private static final long serialVersionUID = 1L;
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public String getSetor() {
-		return setor;
-	}
-
-	public void setSetor(String setor) {
-		this.setor = setor;
-	}
 	
 	public String getSenha() {
 		return senha;
@@ -92,6 +99,10 @@ private static final long serialVersionUID = 1L;
 	
 	public List<Venda> getVenda() {
 		return venda;
+	}
+	
+	public Set<Funcao> getFuncoes(){
+		return funcoes;
 	}
 	
 	@Override
@@ -119,7 +130,44 @@ private static final long serialVersionUID = 1L;
 		return true;
 	}
 
-	
-	
-	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		return funcoes;
+	}
+
+	@Override
+	public String getPassword() {
+		return senha;
+	}
+
+	@Override
+	public String getUsername() {
+		return email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }

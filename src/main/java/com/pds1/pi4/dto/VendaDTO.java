@@ -117,7 +117,7 @@ private Long id;
 	
 	public Venda toEntity() {
 		Cliente cliente = new Cliente(clienteId, clienteNome, clienteCpf, null, null, null);
-		Usuario usuario = new Usuario(usuarioId, usuarioNome, null, null, null);
+		Usuario usuario = new Usuario(usuarioId, usuarioNome, null, null);
 		return new Venda(id, data, totalV, cliente, usuario);
 	}
 }

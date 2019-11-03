@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.pds1.pi4.entidades.Categoria;
 import com.pds1.pi4.entidades.Cliente;
 import com.pds1.pi4.entidades.Compra;
 import com.pds1.pi4.entidades.Fornecedor;
+import com.pds1.pi4.entidades.Funcao;
 import com.pds1.pi4.entidades.ItemCompra;
 import com.pds1.pi4.entidades.ItemVenda;
 import com.pds1.pi4.entidades.Produto;
@@ -22,6 +24,7 @@ import com.pds1.pi4.repositorio.RepCategoria;
 import com.pds1.pi4.repositorio.RepCliente;
 import com.pds1.pi4.repositorio.RepCompra;
 import com.pds1.pi4.repositorio.RepFornecedor;
+import com.pds1.pi4.repositorio.RepFuncao;
 import com.pds1.pi4.repositorio.RepItemCompra;
 import com.pds1.pi4.repositorio.RepItemVenda;
 import com.pds1.pi4.repositorio.RepProduto;
@@ -32,6 +35,9 @@ import com.pds1.pi4.repositorio.RepVenda;
 @Profile("test")
 public class TestConfig implements CommandLineRunner {
 
+	@Autowired
+	private BCryptPasswordEncoder senhaEncode;
+	
 	@Autowired
 	private RepUsuario repUsuario;
 	
@@ -59,6 +65,10 @@ public class TestConfig implements CommandLineRunner {
 	@Autowired
 	private RepItemVenda repItemVenda;
 	
+	@Autowired
+	private RepFuncao repFuncao;
+	
+	
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -75,17 +85,34 @@ public class TestConfig implements CommandLineRunner {
 		repCategoria.saveAll(Arrays.asList(cat1, cat2));
 		repProduto.saveAll(Arrays.asList(p1, p2, p3, p4));
 		
-		Usuario u1 = new Usuario(null, "Maria Brown", "maria@gmail.com", "988888888", "secretaria");
-		Usuario u2 = new Usuario(null, "Alex Green", "alex@gmail.com", "977777777", "administrador");
+		Usuario u1 = new Usuario(null, "Pedro Adm", "pedro@gmail.com", senhaEncode.encode("123456"));
+		Usuario u2 = new Usuario(null, "Daniela Sec", "daniela@gmail.com", senhaEncode.encode("123456"));
+		Usuario u3 = new Usuario(null, "Mateus Est", "mateus@gmail.com", senhaEncode.encode("123456"));
 
-		Fornecedor f1 = new Fornecedor(null, "Areia total", "11111111111", "rua mangue, 201, jb", "areiatotal@hotmail.com", "11111111");
+		repUsuario.saveAll(Arrays.asList(u1, u2, u3));
 		
-		Compra c1 = new Compra(null, Instant.parse("2019-06-20T19:53:07Z"), CompraStatus.PAGO, u1, f1);
-		Compra c2 = new Compra(null, Instant.parse("2019-07-21T03:42:10Z"), CompraStatus.PAGTO_PENDENTE, u2, f1);
-		Compra c3 = new Compra(null, Instant.parse("2019-07-22T15:21:22Z"), CompraStatus.PAGTO_PENDENTE, u1, f1);
+		Funcao f1 = new Funcao(null, "ROLE_ADMIN");
+		Funcao f2 = new Funcao(null, "ROLE_SECRET");
+		Funcao f3 = new Funcao(null, "ROLE_ESTOQ");
+		
+		repFuncao.saveAll(Arrays.asList(f1, f2, f3));
+		
+		u1.getFuncoes().add(f1);
+		u1.getFuncoes().add(f2);
+		u1.getFuncoes().add(f3);
+		u2.getFuncoes().add(f2);
+		u3.getFuncoes().add(f3);
+		
+		repUsuario.saveAll(Arrays.asList(u1, u2, u3));
+		
+		Fornecedor for1 = new Fornecedor(null, "Areia total", "11111111111", "rua mangue, 201, jb", "areiatotal@hotmail.com", "11111111");
+		
+		repFornecedor.saveAll(Arrays.asList(for1));
+		
+		Compra c1 = new Compra(null, Instant.parse("2019-06-20T19:53:07Z"), CompraStatus.PAGO, u1, for1);
+		Compra c2 = new Compra(null, Instant.parse("2019-07-21T03:42:10Z"), CompraStatus.PAGTO_PENDENTE, u2, for1);
+		Compra c3 = new Compra(null, Instant.parse("2019-07-22T15:21:22Z"), CompraStatus.PAGTO_PENDENTE, u1, for1);
 
-		repUsuario.saveAll(Arrays.asList(u1, u2));
-		repFornecedor.saveAll(Arrays.asList(f1));
 		repCompra.saveAll(Arrays.asList(c1, c2, c3));
 		
 		ItemCompra ic1 = new ItemCompra(c1,p1, 2, p1.getPreco());

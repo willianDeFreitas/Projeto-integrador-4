@@ -2,27 +2,35 @@ package com.pds1.pi4.dto;
 
 import java.io.Serializable;
 
-import com.pds1.pi4.entidades.Usuario;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
+import com.pds1.pi4.entidades.Usuario;
+import com.pds1.pi4.servicos.validacao.InserirUsuarioValido;
+
+@InserirUsuarioValido
 public class InserirUsuarioDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
+
+	@NotEmpty(message= "O campo não pode esta vazio")
 	private String nome;
+	@NotEmpty(message= "O campo não pode esta vazio")
+	@Email(message= "Email invalido")
 	private String email;
-	private String setor;
 	private String senha;
 	
 	public InserirUsuarioDTO() {
 		
 	}
 
-	public InserirUsuarioDTO(Long id, String nome, String email, String setor, String senha) {
+	public InserirUsuarioDTO(Long id, String nome, String email, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
-		this.setor = setor;
 		this.senha = senha;
 	}
 	
@@ -30,7 +38,6 @@ public class InserirUsuarioDTO implements Serializable{
 		this.id = objUs.getId();
 		this.nome = objUs.getNome();
 		this.email = objUs.getEmail();
-		this.setor = objUs.getSetor();
 		this.senha = objUs.getSenha();
 	}
 
@@ -58,14 +65,6 @@ public class InserirUsuarioDTO implements Serializable{
 		this.email = email;
 	}
 
-	public String getSetor() {
-		return setor;
-	}
-
-	public void setSetor(String setor) {
-		this.setor = setor;
-	}
-	
 	public String getSenha() {
 		return senha;
 	}
@@ -75,6 +74,6 @@ public class InserirUsuarioDTO implements Serializable{
 	}
 
 	public Usuario toEntity() {
-		return new Usuario(id, nome, email, setor, senha);
+		return new Usuario(id, nome, email, senha);
 	}
 }

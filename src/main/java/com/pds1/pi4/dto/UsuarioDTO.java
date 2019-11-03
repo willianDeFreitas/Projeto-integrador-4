@@ -2,33 +2,39 @@ package com.pds1.pi4.dto;
 
 import java.io.Serializable;
 
-import com.pds1.pi4.entidades.Usuario;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
+import com.pds1.pi4.entidades.Usuario;
+import com.pds1.pi4.servicos.validacao.AtualizarUsuarioValido;
+
+@AtualizarUsuarioValido
 public class UsuarioDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
+	
+	@NotEmpty(message= "O campo não pode esta vazio")
 	private String nome;
+	@NotEmpty(message= "O campo não pode esta vazio")
+	@Email(message= "Email invalido")
 	private String email;
-	private String setor;
 	
 	public UsuarioDTO() {
 		
 	}
 
-	public UsuarioDTO(Long id, String nome, String email, String setor) {
+	public UsuarioDTO(Long id, String nome, String email) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
-		this.setor = setor;
 	}
 	
 	public UsuarioDTO(Usuario objUs) {
 		this.id = objUs.getId();
 		this.nome = objUs.getNome();
 		this.email = objUs.getEmail();
-		this.setor = objUs.getSetor();
 	}
 
 	public Long getId() {
@@ -55,15 +61,8 @@ public class UsuarioDTO implements Serializable{
 		this.email = email;
 	}
 
-	public String getSetor() {
-		return setor;
-	}
-
-	public void setSetor(String setor) {
-		this.setor = setor;
-	}
-	
+		
 	public Usuario toEntity() {
-		return new Usuario(id, nome, email, null, setor);
+		return new Usuario(id, nome, email, null);
 	}
 }

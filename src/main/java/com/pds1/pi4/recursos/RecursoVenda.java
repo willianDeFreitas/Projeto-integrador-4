@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ public class RecursoVenda {
 	@Autowired
 	private ServicoVenda servVenda;
 	
+	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@GetMapping
 	public ResponseEntity<List<VendaDTO>> buscar(){
 		
@@ -27,6 +29,7 @@ public class RecursoVenda {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<VendaDTO> buscarId(@PathVariable Long id){
 		VendaDTO dto = servVenda.buscarId(id);

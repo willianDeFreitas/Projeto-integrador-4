@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class RecursoCliente {
 	@Autowired
 	private ServicoCliente servCliente;
 
+	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@GetMapping
 	public ResponseEntity<List<ClienteDTO>> buscar() {
 
@@ -35,12 +37,14 @@ public class RecursoCliente {
 		return ResponseEntity.ok().body(list);
 	}
 
+	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ClienteDTO> buscarId(@PathVariable Long id) {
 		ClienteDTO obj = servCliente.buscarId(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@PostMapping
 	public ResponseEntity<ClienteDTO> inserir(@RequestBody ClienteDTO dto){
 		ClienteDTO newDto =  servCliente.inserir(dto);
@@ -49,12 +53,14 @@ public class RecursoCliente {
 		return ResponseEntity.created(uri).body(newDto);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> excluir(@PathVariable Long id){
 		servCliente.excluir(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ClienteDTO> atualizar(@PathVariable Long id, @RequestBody ClienteDTO dto){
 		dto = servCliente.atualizar(id, dto);

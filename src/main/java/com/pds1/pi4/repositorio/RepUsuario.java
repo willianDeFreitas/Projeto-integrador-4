@@ -6,4 +6,5 @@ import com.pds1.pi4.entidades.Usuario;
 
 public interface RepUsuario extends JpaRepository<Usuario, Long>{
 
+	Usuario findByEmail(String email);
 }

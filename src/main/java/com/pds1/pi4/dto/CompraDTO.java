@@ -130,7 +130,7 @@ public class CompraDTO {
 	
 	public Compra toEntity() {
 		Fornecedor fornecedor =new Fornecedor(fornecedorId, fornecedorNome, fornecedorCnpj, null, null, null);
-		Usuario usuario = new Usuario(usuarioId, usuarioNome, null, null, null);
+		Usuario usuario = new Usuario(usuarioId, usuarioNome, null, null);
 		return new Compra(id, dataReg, compraStatus, usuario, fornecedor);
 	}
 }

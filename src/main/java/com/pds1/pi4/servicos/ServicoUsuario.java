@@ -10,6 +10,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.pds1.pi4.dto.InserirUsuarioDTO;
@@ -20,7 +24,10 @@ import com.pds1.pi4.servicos.exceptions.DatabaseException;
 import com.pds1.pi4.servicos.exceptions.ResourceNotFoundException;
 
 @Service
-public class ServicoUsuario {
+public class ServicoUsuario implements UserDetailsService{
+	
+	@Autowired
+	private BCryptPasswordEncoder senhaEncoder;
 	
 	@Autowired
 	private RepUsuario repUsuario;
@@ -38,6 +45,7 @@ public class ServicoUsuario {
 	
 	public UsuarioDTO inserir(InserirUsuarioDTO dto) {
 		Usuario objUs = dto.toEntity();
+		objUs.setSenha(senhaEncoder.encode(dto.getSenha()));
 		objUs = repUsuario.save(objUs);
 		return new UsuarioDTO(objUs);
 	}
@@ -67,7 +75,16 @@ public class ServicoUsuario {
 	private void atualizarData(Usuario objUs, UsuarioDTO dto) {
 		objUs.setNome(dto.getNome());
 		objUs.setEmail(dto.getEmail());
-		objUs.setSetor(dto.getSetor());		
+			
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Usuario usuario = repUsuario.findByEmail(username);
+		if(usuario == null) {
+			throw new UsernameNotFoundException(username);
+		}
+		return usuario;
 	}
 	
 }

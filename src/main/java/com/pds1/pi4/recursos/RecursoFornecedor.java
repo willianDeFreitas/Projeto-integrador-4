@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,7 @@ public class RecursoFornecedor {
 	@Autowired
 	private ServicoFornecedor servFornecedor;
 	
+	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@GetMapping
 	public ResponseEntity<List<FornecedorDTO>> buscar(){
 		
@@ -34,12 +36,14 @@ public class RecursoFornecedor {
 		return ResponseEntity.ok().body(list);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<FornecedorDTO> buscarId(@PathVariable Long id){
 		FornecedorDTO obj = servFornecedor.buscarId(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@PostMapping
 	public ResponseEntity<FornecedorDTO> inserir(@RequestBody FornecedorDTO dto){
 		FornecedorDTO newDto =  servFornecedor.inserir(dto);
@@ -48,12 +52,14 @@ public class RecursoFornecedor {
 		return ResponseEntity.created(uri).body(newDto);
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> excluir(@PathVariable Long id){
 		servFornecedor.excluir(id);
 		return ResponseEntity.noContent().build();
 	}
 	
+	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<FornecedorDTO> atualizar(@PathVariable Long id, @RequestBody FornecedorDTO dto){
 		dto = servFornecedor.atualizar(id, dto);
