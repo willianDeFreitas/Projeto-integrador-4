@@ -7,7 +7,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pds1.pi4.dto.InserirUsuarioDTO;
+import com.pds1.pi4.dto.UsuarioDTO;
 import com.pds1.pi4.dto.VendaDTO;
+import com.pds1.pi4.entidades.Usuario;
 import com.pds1.pi4.entidades.Venda;
 import com.pds1.pi4.repositorio.RepVenda;
 import com.pds1.pi4.servicos.exceptions.ResourceNotFoundException;
@@ -27,5 +30,11 @@ public class ServicoVenda {
 		Optional<Venda> obj = repVenda.findById(id);
 		Venda objVend = obj.orElseThrow(()-> new ResourceNotFoundException(id));
 		return new VendaDTO(objVend);
+	}
+	
+	public VendaDTO inserir(VendaDTO dto) {
+		Venda objUs = dto.toEntity();
+		objUs = repVenda.save(objUs);
+		return new VendaDTO(objUs);
 	}
 }

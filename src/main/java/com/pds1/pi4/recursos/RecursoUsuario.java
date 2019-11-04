@@ -53,7 +53,7 @@ public class RecursoUsuario {
 		return ResponseEntity.created(uri).body(newDto);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN'')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> excluir(@PathVariable Long id){
 		servUsuario.excluir(id);
