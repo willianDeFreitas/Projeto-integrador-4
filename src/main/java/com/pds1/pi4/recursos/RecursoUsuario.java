@@ -37,7 +37,7 @@ public class RecursoUsuario {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
+	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<UsuarioDTO> buscarId(@PathVariable Long id){
 		UsuarioDTO dto = servUsuario.buscarId(id);
