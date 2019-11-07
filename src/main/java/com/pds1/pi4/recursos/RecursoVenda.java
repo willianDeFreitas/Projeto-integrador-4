@@ -30,26 +30,26 @@ public class RecursoVenda {
 	@Autowired
 	private ServicoVenda servVenda;
 	
-	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
+	//@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@GetMapping
-	public ResponseEntity<List<VendaDTO>> buscar(){
-		List<VendaDTO> list = servVenda.buscar();
+	public ResponseEntity<List<Venda>> buscar(){
+		List<Venda> list = servVenda.buscar();
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
+	//@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<VendaDTO> buscarId(@PathVariable Long id){
-		VendaDTO dto = servVenda.buscarId(id);
+	public ResponseEntity<Venda> buscarPorId(@PathVariable Long id){
+		Venda dto = servVenda.buscarPorId(id);
 		return ResponseEntity.ok().body(dto);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
-	@PostMapping
-	public ResponseEntity<VendaDTO> inserir(@Valid @RequestBody VendaItemVendaDTO dto){
-		VendaDTO newDto =  servVenda.inserir(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(newDto.getId()).toUri();
-		return ResponseEntity.created(uri).body(newDto);
-	}
+//	@PreAuthorize("hasAnyRole('ADMIN')")
+//	@PostMapping
+//	public ResponseEntity<VendaDTO> inserir(@Valid @RequestBody VendaItemVendaDTO dto){
+//		VendaDTO newDto =  servVenda.inserir(dto);
+//		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+//				.buildAndExpand(newDto.getId()).toUri();
+//		return ResponseEntity.created(uri).body(newDto);
+//	}
 }

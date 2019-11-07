@@ -10,41 +10,39 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
+@Table(name = "tb_venda")
 public class Venda implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Instant date;
+	private Instant data;
 	private float totalV;
+	private Long idCliente;
 	
-	@ManyToOne
-	@JoinColumn(name= "cliente_id")
-	private Cliente cliente;
+	@OneToMany(mappedBy = "venda")
+	private Set<ItemVenda> itemsVenda = new HashSet<>();
 	
-	@ManyToOne
-	@JoinColumn(name= "usuario_id")
-	private Usuario usuario;
+//	@ManyToOne
+//	@JoinColumn(name= "cliente_id")
+//	private Cliente cliente;
 	
-	@OneToMany(mappedBy = "id.venda")
-	private Set<ItemVendaOLD> itemsVenda = new HashSet<>();
-	
-	public Venda() {
-		
-	}
+	public Venda() {}
 
-	public Venda(Long id, Instant date, float totalV, Cliente cliente, Usuario usuario) {
+	public Venda(Long id, Instant data, float totalV, Long idCliente) {
 		super();
 		this.id = id;
-		this.date = date;
+		this.data = data;
 		this.totalV = totalV;
-		this.cliente= cliente;
-		this.usuario = usuario;
+		this.idCliente= idCliente;
 	}
 
 	public Long getId() {
@@ -55,12 +53,12 @@ public class Venda implements Serializable {
 		this.id = id;
 	}
 
-	public Instant getDate() {
-		return date;
+	public Instant getData() {
+		return data;
 	}
 
-	public void setDate(Instant date) {
-		this.date = date;
+	public void setData(Instant data) {
+		this.data = data;
 	}
 
 	public float getTotalV() {
@@ -72,24 +70,15 @@ public class Venda implements Serializable {
 	}
 
 	
-	public Cliente getCliente() {
-		return cliente;
+	public Long getIdCliente() {
+		return idCliente;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setIdCliente(Long idCliente) {
+		this.idCliente = idCliente;
 	}
 	
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	
-	public Set<ItemVendaOLD> getItemsVenda() {
+	public Set<ItemVenda> getItemsVenda() {
 		return itemsVenda;
 	}
 

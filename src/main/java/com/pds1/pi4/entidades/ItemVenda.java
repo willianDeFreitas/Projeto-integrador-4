@@ -1,11 +1,16 @@
 package com.pds1.pi4.entidades;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,12 +20,16 @@ public class ItemVenda implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	private long idProd;
-	private long idVenda;
+	private Long id;
+	private Long idProd;
+	private Long idVenda;
 	private Double qtdItemV;
 	private Double precoItemV;
 	private boolean conferido;
+	
+	@ManyToOne
+	@JoinColumn(name = "venda_id")
+	private Venda venda;
 	
 	public ItemVenda() {}
 
@@ -34,7 +43,7 @@ public class ItemVenda implements Serializable {
 		this.conferido = conferido;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -42,7 +51,7 @@ public class ItemVenda implements Serializable {
 		this.id = id;
 	}
 
-	public long getIdProd() {
+	public Long getIdProd() {
 		return idProd;
 	}
 
@@ -50,7 +59,7 @@ public class ItemVenda implements Serializable {
 		this.idProd = idProd;
 	}
 
-	public long getIdVenda() {
+	public Long getIdVenda() {
 		return idVenda;
 	}
 

@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Cliente implements Serializable {
@@ -23,7 +24,8 @@ public class Cliente implements Serializable {
 	private String email;
 	private String tel;
 	
-	@OneToMany(mappedBy = "cliente")
+	//@OneToMany(mappedBy = "cliente")
+	@Transient
 	private List<Venda> vendas= new ArrayList<>();
 	
 	public Cliente() {

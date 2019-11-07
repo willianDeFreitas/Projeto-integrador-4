@@ -43,9 +43,9 @@ public class VendaItemVendaDTO implements Serializable {
 	}
 	
 	public VendaItemVendaDTO(Venda entity) {
-		setData(entity.getDate());
+		setData(entity.getData());
 		setTotalV(entity.getTotalV());
-		setClienteId(entity.getCliente().getId());
+		setClienteId(entity.getIdCliente());
 	}
 
 	public Instant getData() {
@@ -117,9 +117,7 @@ public class VendaItemVendaDTO implements Serializable {
 	}
 	
 	public Venda toEntity() {
-		Cliente cliente = new Cliente(clienteId, clienteNome, clienteCpf, null, null, null);
-		Usuario usuario = new Usuario(usuarioId, usuarioNome, null, null);
-		return new Venda(null, data, totalV, cliente, usuario);
+		return new Venda(null, data, totalV, clienteId);
 	}
 
 }

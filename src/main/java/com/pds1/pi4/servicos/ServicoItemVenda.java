@@ -2,20 +2,12 @@ package com.pds1.pi4.servicos;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.persistence.EntityNotFoundException;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.pds1.pi4.entidades.ItemVenda;
 import com.pds1.pi4.repositorio.RepItemVenda;
-import com.pds1.pi4.servicos.exceptions.DatabaseException;
-import com.pds1.pi4.servicos.exceptions.ResourceNotFoundException;
 
 @Service
 public class ServicoItemVenda {

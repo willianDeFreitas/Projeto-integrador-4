@@ -27,29 +27,31 @@ public class ServicoVenda {
 	@Autowired
 	private RepItemVenda itemVendaRepositorio;
 	
-	public List<VendaDTO> buscar(){
-		List<Venda> list = repVenda.findAll();
-		return list.stream().map(e -> new VendaDTO(e)).collect(Collectors.toList());
+	public List<Venda> buscar(){
+		return repVenda.findAll();
+		//List<Venda> list = repVenda.findAll();
+		//return list.stream().map(e -> new VendaDTO(e)).collect(Collectors.toList());
 	}
 	
-	public VendaDTO buscarId(Long id) {
+	public Venda buscarPorId(Long id) {
 		Optional<Venda> obj = repVenda.findById(id);
-		Venda objVend = obj.orElseThrow(()-> new ResourceNotFoundException(id));
-		return new VendaDTO(objVend);
+		//Venda objVend = obj.orElseThrow(()-> new ResourceNotFoundException(id));
+		//return new VendaDTO(objVend);
+		return obj.get();
 	}
 	
-	public VendaDTO inserir(VendaItemVendaDTO dto) {
-		Venda entity = dto.toEntity();
-		setVendaItemVenda(entity, dto.getItemVenda());
-		entity = repVenda.save(entity);
-		return new VendaDTO(entity);
-	}
-
-	private void setVendaItemVenda(Venda entity, List<ItemVendaDTO> itemVendas) {
-		entity.getItemsVenda().clear();
-		for (ItemVendaDTO dto : itemVendas) {
-			ItemVenda itemVenda = itemVendaRepositorio.getOne((long) dto.getId());
-			entity.getItemsVenda().addAll((Collection<? extends ItemVendaOLD>) itemVenda);
-		}
-	}
+//	public VendaDTO inserir(VendaItemVendaDTO dto) {
+//		Venda entity = dto.toEntity();
+//		setVendaItemVenda(entity, dto.getItemVenda());
+//		entity = repVenda.save(entity);
+//		return new VendaDTO(entity);
+//	}
+//
+//	private void setVendaItemVenda(Venda entity, List<ItemVendaDTO> itemVendas) {
+//		entity.getItemsVenda().clear();
+//		for (ItemVendaDTO dto : itemVendas) {
+//			ItemVenda itemVenda = itemVendaRepositorio.getOne((long) dto.getId());
+//			entity.getItemsVenda().add(itemVenda);
+//		}
+//	}
 }

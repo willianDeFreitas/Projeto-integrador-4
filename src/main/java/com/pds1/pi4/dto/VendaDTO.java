@@ -31,24 +31,14 @@ private Long id;
 		this.id = id;
 		this.data = data;
 		this.totalV = totalV;
-		this.usuarioId = usuarioId;
-		this.usuarioNome = usuarioNome;
 		this.clienteId = clienteId;
-		this.clienteNome = clienteNome;
-		this.clienteCpf = clienteCpf;
-		this.clienteEmail = clienteEmail;
 	}
 	
 	public VendaDTO(Venda objVend) {
 		this.id = objVend.getId();
-		this.data = objVend.getDate();
+		this.data = objVend.getData();
 		this.totalV = objVend.getTotalV();
-		this.usuarioId = objVend.getUsuario().getId();
-		this.usuarioNome = objVend.getUsuario().getNome();
-		this.clienteId = objVend.getCliente().getId();
-		this.clienteNome = objVend.getCliente().getNome();
-		this.clienteCpf = objVend.getCliente().getCpf();
-		this.clienteEmail = objVend.getCliente().getEmail();
+		this.clienteId = objVend.getIdCliente();
 	}
 
 	public Long getId() {
@@ -116,8 +106,6 @@ private Long id;
 	}
 	
 	public Venda toEntity() {
-		Cliente cliente = new Cliente(clienteId, clienteNome, clienteCpf, null, null, null);
-		Usuario usuario = new Usuario(usuarioId, usuarioNome, null, null);
-		return new Venda(id, data, totalV, cliente, usuario);
+		return new Venda(id, data, totalV, clienteId);
 	}
 }

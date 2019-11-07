@@ -36,12 +36,7 @@ private static final long serialVersionUID = 1L;
 	
 	
 	@OneToMany(mappedBy = "usuario")
-	private List<Compra> compras = new ArrayList<>();
-	
-
-	@OneToMany(mappedBy = "usuario")
-	private List<Venda> venda = new ArrayList<>();
-	
+	private List<Compra> compras = new ArrayList<>();	
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_usuario_funcao",joinColumns = @JoinColumn(name = "usuario_id"),
@@ -95,10 +90,6 @@ private static final long serialVersionUID = 1L;
 
 	public List<Compra> getCompras() {
 		return compras;
-	}
-	
-	public List<Venda> getVenda() {
-		return venda;
 	}
 	
 	public Set<Funcao> getFuncoes(){
