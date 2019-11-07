@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.pds1.pi4.dto.InserirUsuarioDTO;
 import com.pds1.pi4.dto.UsuarioDTO;
 import com.pds1.pi4.dto.VendaDTO;
+import com.pds1.pi4.dto.VendaItemVendaDTO;
 import com.pds1.pi4.entidades.Venda;
 import com.pds1.pi4.servicos.ServicoVenda;
 
@@ -43,9 +44,9 @@ public class RecursoVenda {
 		return ResponseEntity.ok().body(dto);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@PostMapping
-	public ResponseEntity<VendaDTO> inserir(@Valid @RequestBody VendaDTO dto){
+	public ResponseEntity<VendaDTO> inserir(@Valid @RequestBody VendaItemVendaDTO dto){
 		VendaDTO newDto =  servVenda.inserir(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newDto.getId()).toUri();

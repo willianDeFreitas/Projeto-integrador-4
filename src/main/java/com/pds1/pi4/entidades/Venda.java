@@ -32,7 +32,7 @@ public class Venda implements Serializable {
 	private Usuario usuario;
 	
 	@OneToMany(mappedBy = "id.venda")
-	private Set<ItemVenda> itemsVenda = new HashSet<>();
+	private Set<ItemVendaOLD> itemsVenda = new HashSet<>();
 	
 	public Venda() {
 		
@@ -89,7 +89,7 @@ public class Venda implements Serializable {
 	}
 
 	
-	public Set<ItemVenda> getItemsVenda() {
+	public Set<ItemVendaOLD> getItemsVenda() {
 		return itemsVenda;
 	}
 

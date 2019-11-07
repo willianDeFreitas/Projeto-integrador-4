@@ -129,7 +129,7 @@ public class TestConfig implements CommandLineRunner {
 		repCliente.saveAll(Arrays.asList(cli1));
 		repVenda.saveAll(Arrays.asList(v1));
 		
-		ItemVenda itv = new ItemVenda(v1, p1, 2, 100);
+		ItemVenda itv = new ItemVenda(1L, p1.getId(), v1.getId(), 100.0, 100.0, false);
 		
 		repItemVenda.saveAll(Arrays.asList(itv));
 		
