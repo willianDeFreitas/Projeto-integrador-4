@@ -5,7 +5,7 @@ public enum CompraStatus {
 	PAGO(2),
 	ENVIADO(3),
 	ENTREGUE(4),
-	cancelado(5);
+	CANCELADO(5);
 
 	private int code;
 	

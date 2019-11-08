@@ -28,7 +28,7 @@ public class RecursoFornecedor {
 	@Autowired
 	private ServicoFornecedor servFornecedor;
 	
-	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
+	
 	@GetMapping
 	public ResponseEntity<List<FornecedorDTO>> buscar(){
 		
@@ -36,7 +36,6 @@ public class RecursoFornecedor {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<FornecedorDTO> buscarId(@PathVariable Long id){
 		FornecedorDTO obj = servFornecedor.buscarId(id);

@@ -29,10 +29,6 @@ public class Compra implements Serializable {
 	
 	private Integer compraStatus;
 
-	@ManyToOne
-	@JoinColumn(name = "usuario_id")
-	private Usuario usuario;
-
 	@OneToMany(mappedBy = "id.compra")
 	private Set<ItemCompra> itemsCompra = new HashSet<>();
 	
@@ -44,12 +40,11 @@ public class Compra implements Serializable {
 
 	}
 
-	public Compra(Long id, Instant dataReg, CompraStatus compraStatus, Usuario usuario, Fornecedor fornecedor) {
+	public Compra(Long id, Instant dataReg, CompraStatus compraStatus, Fornecedor fornecedor) {
 		super();
 		this.id = id;
 		this.dataReg = dataReg;
 		setCompraStatus(compraStatus);
-		this.usuario = usuario;
 		this.fornecedor = fornecedor;
 	}
 
@@ -81,15 +76,6 @@ public class Compra implements Serializable {
 		}
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	
 	public Fornecedor getFornecedor() {
 		return fornecedor;
 	}

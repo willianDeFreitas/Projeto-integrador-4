@@ -37,7 +37,6 @@ public class RecursoCliente {
 		return ResponseEntity.ok().body(list);
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<ClienteDTO> buscarId(@PathVariable Long id) {
 		ClienteDTO obj = servCliente.buscarId(id);

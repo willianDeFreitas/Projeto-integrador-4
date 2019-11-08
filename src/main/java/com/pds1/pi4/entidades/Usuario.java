@@ -34,10 +34,7 @@ private static final long serialVersionUID = 1L;
 	private String email;
 	private String senha;
 	
-	
-	@OneToMany(mappedBy = "usuario")
-	private List<Compra> compras = new ArrayList<>();
-	
+
 
 	@OneToMany(mappedBy = "usuario")
 	private List<Venda> venda = new ArrayList<>();
@@ -93,9 +90,6 @@ private static final long serialVersionUID = 1L;
 		this.senha = senha;
 	}
 
-	public List<Compra> getCompras() {
-		return compras;
-	}
 	
 	public List<Venda> getVenda() {
 		return venda;

@@ -109,9 +109,9 @@ public class TestConfig implements CommandLineRunner {
 		
 		repFornecedor.saveAll(Arrays.asList(for1));
 		
-		Compra c1 = new Compra(null, Instant.parse("2019-06-20T19:53:07Z"), CompraStatus.PAGO, u1, for1);
-		Compra c2 = new Compra(null, Instant.parse("2019-07-21T03:42:10Z"), CompraStatus.PAGTO_PENDENTE, u2, for1);
-		Compra c3 = new Compra(null, Instant.parse("2019-07-22T15:21:22Z"), CompraStatus.PAGTO_PENDENTE, u1, for1);
+		Compra c1 = new Compra(null, Instant.parse("2019-06-20T19:53:07Z"), CompraStatus.PAGO, for1);
+		Compra c2 = new Compra(null, Instant.parse("2019-07-21T03:42:10Z"), CompraStatus.PAGTO_PENDENTE, for1);
+		Compra c3 = new Compra(null, Instant.parse("2019-07-22T15:21:22Z"), CompraStatus.PAGTO_PENDENTE, for1);
 
 		repCompra.saveAll(Arrays.asList(c1, c2, c3));
 		
