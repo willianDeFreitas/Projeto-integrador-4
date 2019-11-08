@@ -1,56 +1,65 @@
 package com.pds1.pi4.dto;
 
-import java.io.Serializable;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ItemVendaDTO implements Serializable {
-	private static final long serialVersionUID = 1L;
+import com.pds1.pi4.entidades.ItemVenda;
+import com.pds1.pi4.entidades.Venda;
+
+public class ItemVendaDTO {
 	
-	private int id;
-	private int idProd;
-	private int idVenda;
-	private float qtdItemVenda;
+	private Instant data;
+	private Double totalV;
+	private Long clienteId;
 	
-	public ItemVendaDTO() {}	
+	private List<ItemVenda> itensVenda = new ArrayList<>();
 	
-	public ItemVendaDTO(int id, int idProd, int idVenda, float qtdItemVenda, float precoItemVenda) {
+	public ItemVendaDTO() {}
+
+	public ItemVendaDTO(Instant data, Double totalV, Long clienteId, List<ItemVenda> itensVenda) {
 		super();
-		this.id = id;
-		this.idProd = idProd;
-		this.idVenda = idVenda;
-		this.qtdItemVenda = qtdItemVenda;
-		this.precoItemVenda = precoItemVenda;
+		this.data = data;
+		this.totalV = totalV;
+		this.clienteId = clienteId;
+	}
+	
+	public ItemVendaDTO(Venda entity) {
+		setData(entity.getDate());
+		setTotalV(entity.getTotalV());
+		setClienteId(entity.getCliente().getId());	
 	}
 
-	public int getId() {
-		return id;
+	public Instant getData() {
+		return data;
 	}
-	public void setId(int id) {
-		this.id = id;
+
+	public void setData(Instant data) {
+		this.data = data;
 	}
-	public int getIdProd() {
-		return idProd;
+
+	public Double getTotalV() {
+		return totalV;
 	}
-	public void setIdProd(int idProd) {
-		this.idProd = idProd;
+
+	public void setTotalV(Double totalV) {
+		this.totalV = totalV;
 	}
-	public int getIdVenda() {
-		return idVenda;
+
+	public Long getClienteId() {
+		return clienteId;
 	}
-	public void setIdVenda(int idVenda) {
-		this.idVenda = idVenda;
+
+	public void setClienteId(Long clienteId) {
+		this.clienteId = clienteId;
 	}
-	public float getQtdItemVenda() {
-		return qtdItemVenda;
+
+	public List<ItemVenda> getItensVenda() {
+		return itensVenda;
 	}
-	public void setQtdItemVenda(float qtdItemVenda) {
-		this.qtdItemVenda = qtdItemVenda;
+	
+	public Venda toEntity() {
+		return new Venda(null, data, totalV, null);
 	}
-	public float getPrecoItemVenda() {
-		return precoItemVenda;
-	}
-	public void setPrecoItemVenda(float precoItemVenda) {
-		this.precoItemVenda = precoItemVenda;
-	}
-	private float precoItemVenda;
 
 }

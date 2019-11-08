@@ -10,39 +10,36 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
-@Table(name = "tb_venda")
 public class Venda implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Instant data;
-	private float totalV;
-	private Long idCliente;
+	private Instant date;
+	private Double totalV;
 	
-	@OneToMany(mappedBy = "venda")
+	@ManyToOne
+	@JoinColumn(name= "cliente_id")
+	private Cliente cliente;
+	
+	@OneToMany(mappedBy = "id.venda")
 	private Set<ItemVenda> itemsVenda = new HashSet<>();
 	
-//	@ManyToOne
-//	@JoinColumn(name= "cliente_id")
-//	private Cliente cliente;
-	
-	public Venda() {}
+	public Venda() {
+		
+	}
 
-	public Venda(Long id, Instant data, float totalV, Long idCliente) {
+	public Venda(Long id, Instant date, Double totalV, Cliente cliente) {
 		super();
 		this.id = id;
-		this.data = data;
+		this.date = date;
 		this.totalV = totalV;
-		this.idCliente= idCliente;
+		this.cliente= cliente;
 	}
 
 	public Long getId() {
@@ -53,29 +50,29 @@ public class Venda implements Serializable {
 		this.id = id;
 	}
 
-	public Instant getData() {
-		return data;
+	public Instant getDate() {
+		return date;
 	}
 
-	public void setData(Instant data) {
-		this.data = data;
+	public void setDate(Instant date) {
+		this.date = date;
 	}
 
-	public float getTotalV() {
+	public Double getTotalV() {
 		return totalV;
 	}
 
-	public void setTotalV(float totalV) {
+	public void setTotalV(Double totalV) {
 		this.totalV = totalV;
 	}
 
 	
-	public Long getIdCliente() {
-		return idCliente;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setIdCliente(Long idCliente) {
-		this.idCliente = idCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	
 	public Set<ItemVenda> getItemsVenda() {
