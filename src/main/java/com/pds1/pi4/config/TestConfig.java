@@ -123,15 +123,17 @@ public class TestConfig implements CommandLineRunner {
 		repItemCompra.saveAll(Arrays.asList(ic1, ic2, ic3, ic4));
 		
 		Cliente cli1 = new Cliente(null, "Mario", "00011122233", "rua E, 100, bairro ae", "mario@hotmail.com", "34999887744");
-		
-		Venda v1 = new Venda(null, Instant.parse("2019-06-20T19:53:07Z"), 100, cli1, u1);
-		
 		repCliente.saveAll(Arrays.asList(cli1));
+		
+		Venda v1 = new Venda(null, Instant.parse("2019-06-20T19:53:07Z"), 100.0, cli1);
 		repVenda.saveAll(Arrays.asList(v1));
 		
-		ItemVenda itv = new ItemVenda(v1, p1, 2, 100);
 		
+		ItemVenda itv = new ItemVenda(null, v1, p1, 100.0, 100.0);
 		repItemVenda.saveAll(Arrays.asList(itv));
+		
+		v1.getItemsVenda().add(itv);
+		repVenda.saveAll(Arrays.asList(v1));
 		
 	}
 }

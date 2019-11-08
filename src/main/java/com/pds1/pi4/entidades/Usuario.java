@@ -34,11 +34,6 @@ private static final long serialVersionUID = 1L;
 	private String email;
 	private String senha;
 	
-
-
-	@OneToMany(mappedBy = "usuario")
-	private List<Venda> venda = new ArrayList<>();
-	
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "tb_usuario_funcao",joinColumns = @JoinColumn(name = "usuario_id"),
@@ -90,10 +85,6 @@ private static final long serialVersionUID = 1L;
 		this.senha = senha;
 	}
 
-	
-	public List<Venda> getVenda() {
-		return venda;
-	}
 	
 	public Set<Funcao> getFuncoes(){
 		return funcoes;

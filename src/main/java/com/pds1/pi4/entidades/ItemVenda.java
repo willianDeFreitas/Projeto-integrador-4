@@ -15,17 +15,19 @@ public class ItemVenda implements Serializable {
 	@EmbeddedId
 	private ItemVendaPk id = new ItemVendaPk();
 	
-	private Integer qtdItemV;
+	private Long idItemVenda;
+	private double qtdItemV;
 	private double precoItemV;
 	
 	public ItemVenda() {
 		
 	}
 
-	public ItemVenda(Venda venda, Produto produto, Integer qtdItemV, double precoItemV) {
+	public ItemVenda(Long idItemVenda, Venda venda, Produto produto, double qtdItemV, double precoItemV) {
 		super();
 		id.setVenda(venda);
 		id.setProduto(produto);
+		this.idItemVenda = idItemVenda;
 		this.qtdItemV = qtdItemV;
 		this.precoItemV = precoItemV;
 	}
@@ -45,7 +47,7 @@ public class ItemVenda implements Serializable {
 	public void setProduto(Produto produto) {
 		id.setProduto(produto);
 	}
-	public float getQtdItemV() {
+	public double getQtdItemV() {
 		return qtdItemV;
 	}
 	
@@ -84,6 +86,14 @@ public class ItemVenda implements Serializable {
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	public Long getIdItemVenda() {
+		return idItemVenda;
+	}
+
+	public void setIdItemVenda(Long idItemVenda) {
+		this.idItemVenda = idItemVenda;
 	}
 	
 }

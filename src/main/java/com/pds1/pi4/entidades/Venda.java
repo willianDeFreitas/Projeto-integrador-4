@@ -21,15 +21,11 @@ public class Venda implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Instant date;
-	private float totalV;
+	private Double totalV;
 	
 	@ManyToOne
 	@JoinColumn(name= "cliente_id")
 	private Cliente cliente;
-	
-	@ManyToOne
-	@JoinColumn(name= "usuario_id")
-	private Usuario usuario;
 	
 	@OneToMany(mappedBy = "id.venda")
 	private Set<ItemVenda> itemsVenda = new HashSet<>();
@@ -38,13 +34,12 @@ public class Venda implements Serializable {
 		
 	}
 
-	public Venda(Long id, Instant date, float totalV, Cliente cliente, Usuario usuario) {
+	public Venda(Long id, Instant date, Double totalV, Cliente cliente) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.totalV = totalV;
 		this.cliente= cliente;
-		this.usuario = usuario;
 	}
 
 	public Long getId() {
@@ -63,11 +58,11 @@ public class Venda implements Serializable {
 		this.date = date;
 	}
 
-	public float getTotalV() {
+	public Double getTotalV() {
 		return totalV;
 	}
 
-	public void setTotalV(float totalV) {
+	public void setTotalV(Double totalV) {
 		this.totalV = totalV;
 	}
 
@@ -79,15 +74,6 @@ public class Venda implements Serializable {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	
 	public Set<ItemVenda> getItemsVenda() {
 		return itemsVenda;
