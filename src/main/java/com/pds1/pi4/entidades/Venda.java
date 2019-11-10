@@ -27,7 +27,7 @@ public class Venda implements Serializable {
 	@JoinColumn(name= "cliente_id")
 	private Cliente cliente;
 	
-	@OneToMany(mappedBy = "id.venda")
+	@OneToMany(mappedBy = "venda")
 	private Set<ItemVenda> itemsVenda = new HashSet<>();
 	
 	public Venda() {

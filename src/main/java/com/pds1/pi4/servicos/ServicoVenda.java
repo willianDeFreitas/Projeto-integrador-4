@@ -27,6 +27,9 @@ public class ServicoVenda {
 	@Autowired
 	private RepItemVenda repItemVenda;
 	
+	@Autowired
+	private ServicoVenda servItemVenda;
+	
 	public List<VendaDTO> buscar(){
 		List<Venda> list = repVenda.findAll();
 		return list.stream().map(e -> new VendaDTO(e)).collect(Collectors.toList());
@@ -38,20 +41,27 @@ public class ServicoVenda {
 		return new VendaDTO(objVend);
 	}
 	
-	public VendaDTO inserir(ItemVendaDTO dto) {
+	public VendaDTO inserir(VendaDTO dto) {
 		Venda obj = dto.toEntity();
-		setItensVenda(obj, dto.getItensVenda());
 		obj = repVenda.save(obj);
+		setItensVenda(obj, dto);
 		return new VendaDTO(obj);
 	}
 	
-	private void setItensVenda(Venda obj, List<ItemVenda> itensVenda) {
+	private void setItensVenda(Venda obj, VendaDTO dtoVenda) {
 		obj.getItemsVenda().clear();
-		for (ItemVenda dto : itensVenda) {
-			ItemVenda itemVenda = repItemVenda.getOne(dto.getIdItemVenda());
-			obj.getItemsVenda().add(itemVenda);
+		List<ItemVendaDTO> itensVenda = dtoVenda.getItensVenda();
+		for (ItemVendaDTO dtoItemVenda : itensVenda) {
+			//ItemVenda itemVenda = repItemVenda.getOne(dtoItemVenda.getId());
+			servItemVenda.inserirItemVenda(dtoItemVenda);
+			//obj.getItemsVenda().add(itemVenda);
 		}
-		
+	}
+
+	private void inserirItemVenda(ItemVendaDTO dtoItemVenda) {
+		ItemVenda objItemVenda =  dtoItemVenda.toEntity();
+		repItemVenda.save(objItemVenda);
+		//return new ItemVendaDTO(objItemVenda);
 	}
 
 	public void deletar(Long id) {

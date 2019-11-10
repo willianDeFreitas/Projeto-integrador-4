@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.pds1.pi4.dto.ItemVendaDTO;
 import com.pds1.pi4.dto.VendaDTO;
 import com.pds1.pi4.servicos.ServicoVenda;
 
@@ -42,7 +41,7 @@ public class RecursoVenda {
 	
 	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@PostMapping
-	public ResponseEntity<VendaDTO> inserir(@RequestBody ItemVendaDTO dto){
+	public ResponseEntity<VendaDTO> inserir(@RequestBody VendaDTO dto){
 		VendaDTO newdto = servVenda.inserir(dto);
 		URI uri= ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newdto.getId()).toUri();
 		return ResponseEntity.created(uri).body(newdto);

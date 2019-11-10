@@ -1,6 +1,8 @@
 package com.pds1.pi4.dto;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pds1.pi4.entidades.Cliente;
@@ -15,16 +17,17 @@ private Long id;
 	private Double totalV;
 	private Long clienteId;
 	
-	public VendaDTO() {
-		
-	}
+	private List<ItemVendaDTO> itensVenda = new ArrayList<>();
+	
+	public VendaDTO() {}
 
-	public VendaDTO(Long id, Instant data, Double totalV, Long clienteId) {
+	public VendaDTO(Long id, Instant data, Double totalV, Long clienteId, List<ItemVendaDTO> itensVenda) {
 		super();
 		this.id = id;
 		this.data = data;
 		this.totalV = totalV;
 		this.clienteId = clienteId;
+		this.itensVenda = itensVenda;
 	}
 	
 	public VendaDTO(Venda objVend) {
@@ -71,4 +74,11 @@ private Long id;
 		return new Venda(id, data, totalV, cliente);
 	}
 
+	public List<ItemVendaDTO> getItensVenda() {
+		return itensVenda;
+	}
+
+	public void setItensVenda(List<ItemVendaDTO> itensVenda) {
+		this.itensVenda = itensVenda;
+	}
 }

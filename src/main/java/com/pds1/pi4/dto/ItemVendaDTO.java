@@ -1,65 +1,79 @@
 package com.pds1.pi4.dto;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.pds1.pi4.entidades.ItemVenda;
+import com.pds1.pi4.entidades.Produto;
 import com.pds1.pi4.entidades.Venda;
 
 public class ItemVendaDTO {
 	
-	private Instant data;
-	private Double totalV;
-	private Long clienteId;
-	
-	private List<ItemVenda> itensVenda = new ArrayList<>();
+	private Long id;
+	private Double qtdItemV;
+	private Double valorItemV;
+	private Long produtoId;
+	private Long vendaId;
 	
 	public ItemVendaDTO() {}
 
-	public ItemVendaDTO(Instant data, Double totalV, Long clienteId, List<ItemVenda> itensVenda) {
+	public ItemVendaDTO(Long id, Double qtdItemV, Double valorItemV, Long produtoId, Long vendaId) {
 		super();
-		this.data = data;
-		this.totalV = totalV;
-		this.clienteId = clienteId;
+		this.id = id;
+		this.qtdItemV = qtdItemV;
+		this.valorItemV = valorItemV;
+		this.produtoId = produtoId;
+		this.vendaId = vendaId;
 	}
 	
-	public ItemVendaDTO(Venda entity) {
-		setData(entity.getDate());
-		setTotalV(entity.getTotalV());
-		setClienteId(entity.getCliente().getId());	
+	public ItemVendaDTO(ItemVenda entity) {
+		setId(entity.getId());
+		setQtdItemV(entity.getQtdItemV());
+		setValorItemV(entity.getPrecoItemV());
+		setProdutoId(entity.getProduto().getId());
+		setVendaId(entity.getVenda().getId());
 	}
 
-	public Instant getData() {
-		return data;
+	public Long getId() {
+		return id;
 	}
 
-	public void setData(Instant data) {
-		this.data = data;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public Double getTotalV() {
-		return totalV;
+	public Double getQtdItemV() {
+		return qtdItemV;
 	}
 
-	public void setTotalV(Double totalV) {
-		this.totalV = totalV;
+	public void setQtdItemV(Double qtdItemV) {
+		this.qtdItemV = qtdItemV;
 	}
 
-	public Long getClienteId() {
-		return clienteId;
+	public Double getValorItemV() {
+		return valorItemV;
 	}
 
-	public void setClienteId(Long clienteId) {
-		this.clienteId = clienteId;
+	public void setValorItemV(Double valorItemV) {
+		this.valorItemV = valorItemV;
 	}
 
-	public List<ItemVenda> getItensVenda() {
-		return itensVenda;
-	}
-	
-	public Venda toEntity() {
-		return new Venda(null, data, totalV, null);
+	public Long getProdutoId() {
+		return produtoId;
 	}
 
+	public void setProdutoId(Long produtoId) {
+		this.produtoId = produtoId;
+	}
+
+	public Long getVendaId() {
+		return vendaId;
+	}
+
+	public void setVendaId(Long vendaId) {
+		this.vendaId = vendaId;
+	}
+
+	public ItemVenda toEntity() {
+		Venda venda = new Venda(vendaId, null, null, null);
+		Produto produto = new Produto(produtoId, null, null, 0.0, 0.0, null, null);
+		return new ItemVenda(null, venda, produto, qtdItemV, valorItemV);
+	}
 }
