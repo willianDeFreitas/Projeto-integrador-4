@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.pds1.pi4.dto.InserirUsuarioDTO;
 import com.pds1.pi4.dto.ProdutoDTO;
-import com.pds1.pi4.dto.UsuarioDTO;
 import com.pds1.pi4.servicos.ServicoProduto;
 
 @RestController

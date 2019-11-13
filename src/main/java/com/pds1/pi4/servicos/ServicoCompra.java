@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,7 @@ import com.pds1.pi4.entidades.Produto;
 import com.pds1.pi4.repositorio.RepCompra;
 import com.pds1.pi4.repositorio.RepItemCompra;
 import com.pds1.pi4.repositorio.RepProduto;
+import com.pds1.pi4.servicos.exceptions.DatabaseException;
 import com.pds1.pi4.servicos.exceptions.ResourceNotFoundException;
 
 @Service
@@ -57,7 +60,7 @@ public class ServicoCompra {
 		
 		for (ItemCompraDTO itemDTO : dto.getItensCompra()) {
 			Produto produto = repProduto.getOne(itemDTO.getProdutoId());
-			ItemCompra itemCompra = new ItemCompra(null, obj, produto, itemDTO.getQtdItemC(), itemDTO.getValorItemC());
+			ItemCompra itemCompra = new ItemCompra(null, obj, produto, itemDTO.getQtdItemC(), itemDTO.getValorItemC(), itemDTO.getConferido());
 			obj.getItensCompra().add(itemCompra);
 			
 		}
@@ -65,5 +68,15 @@ public class ServicoCompra {
 		
 		return new CompraDTO(obj);
 		
+	}
+	
+	public void deletar(Long id) {
+		try {
+			repCompra.deleteById(id);
+		}catch (EmptyResultDataAccessException e) {
+				throw new ResourceNotFoundException(id);
+		}catch (DataIntegrityViolationException e){
+			throw new DatabaseException(e.getMessage());
+		}
 	}
 }

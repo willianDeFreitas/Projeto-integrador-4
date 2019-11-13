@@ -14,30 +14,32 @@ public class ItemCompraDTO implements Serializable{
 		private Double valorItemC;
 		private Long produtoId;
 		private Long compraId;
+		private String conferido;
 
 		public ItemCompraDTO() {
 
 		}
 
-		public ItemCompraDTO(Long id, Integer qtdItemC, double valorItemC, Long produtoId, Long compraId) {
+		public ItemCompraDTO(Long id, Integer qtdItemC, double valorItemC, Long produtoId, Long compraId, String conferido) {
 			super();
 			this.qtdItemC = qtdItemC;
 			this.valorItemC = valorItemC;
 			this.produtoId = produtoId;
 			this.compraId = compraId;
-			
+			this.conferido = conferido;			
 		}
 		
 		public ItemCompraDTO(ItemCompra objComp) {
 			if (objComp.getProduto()==null) {
-				throw new IllegalArgumentException("O produto e nulo");
+				throw new IllegalArgumentException("O produto é nulo");
 			}
+			
 			this.id = objComp.getId();
 			this.qtdItemC = objComp.getQtdItemC();
 			this.valorItemC = objComp.getPrecoItemC();
 			this.produtoId = objComp.getProduto().getId();
 			this.compraId = objComp.getCompra().getId();
-			
+			this.conferido = objComp.getConferido();
 		}
 
 		public Long getId() {
@@ -80,10 +82,18 @@ public class ItemCompraDTO implements Serializable{
 			this.compraId = compraId;
 		}
 
+		public String getConferido() {
+			return conferido;
+		}
+
+		public void setConferido(String conferido) {
+			this.conferido = conferido;
+		}
+
 		public ItemCompra toEntity() {
 			Compra compra = new Compra(compraId, null, null, null);
 			Produto produto = new Produto(produtoId, null, null, 0.0, 0.0, null, null);
-			return new ItemCompra(id, compra, produto, qtdItemC, valorItemC);
+			return new ItemCompra(id, compra, produto, qtdItemC, valorItemC, conferido);
 		}
 		
 }

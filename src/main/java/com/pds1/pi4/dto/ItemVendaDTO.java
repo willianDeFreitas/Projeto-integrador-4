@@ -11,24 +11,30 @@ public class ItemVendaDTO {
 	private Double valorItemV;
 	private Long produtoId;
 	private Long vendaId;
+	private String conferido;
 	
 	public ItemVendaDTO() {}
 
-	public ItemVendaDTO(Long id, Double qtdItemV, Double valorItemV, Long produtoId, Long vendaId) {
+	public ItemVendaDTO(Long id, Double qtdItemV, Double valorItemV, Long produtoId, Long vendaId, String conferido) {
 		super();
-		this.id = id;
 		this.qtdItemV = qtdItemV;
 		this.valorItemV = valorItemV;
 		this.produtoId = produtoId;
 		this.vendaId = vendaId;
+		this.conferido = conferido;
 	}
 	
-	public ItemVendaDTO(ItemVenda entity) {
-		setId(entity.getId());
-		setQtdItemV(entity.getQtdItemV());
-		setValorItemV(entity.getPrecoItemV());
-		setProdutoId(entity.getProduto().getId());
-		setVendaId(entity.getVenda().getId());
+	public ItemVendaDTO(ItemVenda objVend) {
+		if (objVend.getProduto()==null) {
+			throw new IllegalArgumentException("O produto é nulo");
+		}
+		
+		this.id = objVend.getId();
+		this.qtdItemV = objVend.getQtdItemV();
+		this.valorItemV = objVend.getPrecoItemV();
+		this.produtoId = objVend.getProduto().getId();
+		this.vendaId = objVend.getVenda().getId();
+		this.conferido = objVend.getConferido();
 	}
 
 	public Long getId() {
@@ -71,9 +77,17 @@ public class ItemVendaDTO {
 		this.vendaId = vendaId;
 	}
 
+	public String getConferido() {
+		return conferido;
+	}
+
+	public void setConferido(String conferido) {
+		this.conferido = conferido;
+	}
+
 	public ItemVenda toEntity() {
 		Venda venda = new Venda(vendaId, null, null, null);
 		Produto produto = new Produto(produtoId, null, null, 0.0, 0.0, null, null);
-		return new ItemVenda(null, venda, produto, qtdItemV, valorItemV);
+		return new ItemVenda(null, venda, produto, qtdItemV, valorItemV, conferido);
 	}
 }

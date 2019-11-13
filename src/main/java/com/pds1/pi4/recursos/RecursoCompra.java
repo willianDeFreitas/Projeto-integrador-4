@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +19,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pds1.pi4.dto.CompraDTO;
 import com.pds1.pi4.dto.ItemCompraDTO;
-import com.pds1.pi4.dto.VendaDTO;
 import com.pds1.pi4.servicos.ServicoCompra;
 
 @RestController
@@ -31,7 +31,6 @@ public class RecursoCompra {
 	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
 	@GetMapping
 	public ResponseEntity<List<CompraDTO>> buscar(){
-		
 		List<CompraDTO> list = servCompra.buscar();
 		return ResponseEntity.ok().body(list);
 	}
@@ -53,8 +52,14 @@ public class RecursoCompra {
 	@PostMapping
 	public ResponseEntity<CompraDTO> inserir(@Valid @RequestBody CompraDTO dto){
 		CompraDTO newDto =  servCompra.inserir(dto);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(newDto.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newDto.getId()).toUri();
 		return ResponseEntity.created(uri).body(newDto);
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN','SECRET')")
+	@DeleteMapping(value = "/{id}")
+	public ResponseEntity<Void> deletar(@PathVariable Long id){
+		servCompra.deletar(id);
+		return ResponseEntity.noContent().build();
 	}
 }

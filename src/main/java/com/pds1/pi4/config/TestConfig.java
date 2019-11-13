@@ -19,7 +19,6 @@ import com.pds1.pi4.entidades.ItemVenda;
 import com.pds1.pi4.entidades.Produto;
 import com.pds1.pi4.entidades.Usuario;
 import com.pds1.pi4.entidades.Venda;
-import com.pds1.pi4.entidades.enums.CompraStatus;
 import com.pds1.pi4.repositorio.RepCategoria;
 import com.pds1.pi4.repositorio.RepCliente;
 import com.pds1.pi4.repositorio.RepCompra;
@@ -115,10 +114,10 @@ public class TestConfig implements CommandLineRunner {
 
 		repCompra.saveAll(Arrays.asList(c1, c2, c3));
 		
-		ItemCompra ic1 = new ItemCompra(null, c1, p1, 3, 90.00);
-		ItemCompra ic2 = new ItemCompra(null, c1, p2, 3, 90.00);
-		ItemCompra ic3 = new ItemCompra(null, c2, p1, 3, 90.00);
-		ItemCompra ic4 = new ItemCompra(null, c2, p4, 3, 90.00);
+		ItemCompra ic1 = new ItemCompra(null, c1, p1, 3, 90.00, "N");
+		ItemCompra ic2 = new ItemCompra(null, c1, p2, 3, 90.00, "N");
+		ItemCompra ic3 = new ItemCompra(null, c2, p1, 3, 90.00, "N");
+		ItemCompra ic4 = new ItemCompra(null, c2, p4, 3, 90.00, "N");
 
 		repItemCompra.saveAll(Arrays.asList(ic1, ic2, ic3, ic4));
 		
@@ -129,7 +128,7 @@ public class TestConfig implements CommandLineRunner {
 		repVenda.saveAll(Arrays.asList(v1));
 		
 		
-		ItemVenda itv = new ItemVenda(null, v1, p1, 100.0, 100.0);
+		ItemVenda itv = new ItemVenda(null, v1, p1, 100.0, 100.0, "N");
 		repItemVenda.saveAll(Arrays.asList(itv));
 		
 		v1.getItemsVenda().add(itv);

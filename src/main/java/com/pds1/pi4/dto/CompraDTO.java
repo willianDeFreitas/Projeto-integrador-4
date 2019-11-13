@@ -7,26 +7,25 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pds1.pi4.entidades.Compra;
 import com.pds1.pi4.entidades.Fornecedor;
-import com.pds1.pi4.entidades.enums.CompraStatus;
 
 public class CompraDTO {
 
 	private Long id;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant dataReg;
-	private Double totalCompra; 
+	private Instant data;
+	private Double totalC; 
 	private Long fornecedorId;
 	
 	private List<ItemCompraDTO> itensCompra = new ArrayList<>();
 	
 	public CompraDTO() {}
 
-	public CompraDTO(Long id, Instant dataReg, Double totalCompra, Long fornecedorId, String fornecedorNome, List<ItemCompraDTO> itensCompra) {
+	public CompraDTO(Long id, Instant data, Double totalC, Long fornecedorId, List<ItemCompraDTO> itensCompra) {
 		super();
 		this.id= id;
-		this.dataReg = dataReg;
-		this.totalCompra = totalCompra;
+		this.data = data;
+		this.totalC = totalC;
 		this.fornecedorId = fornecedorId;
 		this.itensCompra= itensCompra;
 	}
@@ -35,9 +34,10 @@ public class CompraDTO {
 		if(objComp.getFornecedor() == null) {
 			throw new IllegalArgumentException("Error instiating compraDTO: compra was null");
 		}
+		
 		this.id= objComp.getId();
-		this.dataReg = objComp.getDataReg();
-		this.totalCompra = objComp.getTotalCompra();
+		this.data = objComp.getData();
+		this.totalC = objComp.getTotalC();
 		this.fornecedorId = objComp.getFornecedor().getId();
 		
 	}
@@ -51,21 +51,21 @@ public class CompraDTO {
 		this.id = id;
 	}
 
-	public Instant getDataReg() {
-		return dataReg;
+	public Instant getData() {
+		return data;
 	}
 
-	public void setDataReg(Instant dataReg) {
-		this.dataReg = dataReg;
+	public void setData(Instant data) {
+		this.data = data;
 	}
 
 	
-	public Double getTotalCompra() {
-		return totalCompra;
+	public Double getTotalC() {
+		return totalC;
 	}
 
-	public void setTotalCompra(Double totalCompra) {
-		this.totalCompra = totalCompra;
+	public void setTotalC(Double totalC) {
+		this.totalC = totalC;
 	}
 
 	public Long getFornecedorId() {
@@ -86,6 +86,6 @@ public class CompraDTO {
 
 	public Compra toEntity() {
 		Fornecedor fornecedor =new Fornecedor(fornecedorId,null, null, null, null, null);
-		return new Compra(id, dataReg, totalCompra, fornecedor);
+		return new Compra(id, data, totalC, fornecedor);
 	}
 }

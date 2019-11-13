@@ -25,26 +25,21 @@ public class ItemCompra implements Serializable {
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
 	
-	//@EmbeddedId
-	//private ItemCompraPk idPk= new ItemCompraPk();
-	
 	private Integer qtdItemC;
 	private double precoItemC;
+	private String conferido;
 
-	public ItemCompra() {
+	public ItemCompra() {}
 
-	}
-
-	public ItemCompra(Long id, Compra compra, Produto produto, Integer qtdItemC, double precoItemC) {
+	public ItemCompra(Long id, Compra compra, Produto produto, Integer qtdItemC, double precoItemC, String conferido) {
 		super();
 		this.id = id;
 		this.compra = compra;
 		this.produto = produto;
 		this.qtdItemC = qtdItemC;
 		this.precoItemC = precoItemC;
+		this.conferido = conferido;
 	}
-	
-	
 
 	public Long getId() {
 		return id;
@@ -84,6 +79,14 @@ public class ItemCompra implements Serializable {
 
 	public void setPrecoItemC(double precoItemC) {
 		this.precoItemC = precoItemC;
+	}
+
+	public String getConferido() {
+		return conferido;
+	}
+
+	public void setConferido(String conferido) {
+		this.conferido = conferido;
 	}
 
 	@Override

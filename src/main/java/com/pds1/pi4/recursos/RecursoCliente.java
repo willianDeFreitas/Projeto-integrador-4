@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pds1.pi4.dto.ClienteDTO;
-import com.pds1.pi4.dto.InserirUsuarioDTO;
-import com.pds1.pi4.dto.UsuarioDTO;
-import com.pds1.pi4.entidades.Cliente;
 import com.pds1.pi4.servicos.ServicoCliente;
 
 @RestController

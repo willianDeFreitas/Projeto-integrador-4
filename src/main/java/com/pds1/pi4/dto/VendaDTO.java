@@ -31,6 +31,10 @@ private Long id;
 	}
 	
 	public VendaDTO(Venda objVend) {
+		if(objVend.getCliente() == null) {
+			throw new IllegalArgumentException("Error instiating vendaDTO: compra was null");
+		}
+		
 		this.id = objVend.getId();
 		this.data = objVend.getDate();
 		this.totalV = objVend.getTotalV();
@@ -81,6 +85,4 @@ private Long id;
 		Cliente cliente = new Cliente(clienteId, null, null, null, null, null);
 		return new Venda(id, data, totalV, cliente);
 	}
-
-	
 }

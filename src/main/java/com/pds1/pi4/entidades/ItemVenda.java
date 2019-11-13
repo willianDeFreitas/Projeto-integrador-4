@@ -16,8 +16,6 @@ public class ItemVenda implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private double qtdItemV;
-	private double precoItemV;
 	
 	@ManyToOne
 	@JoinColumn(name = "venda_id")
@@ -27,15 +25,20 @@ public class ItemVenda implements Serializable {
 	@JoinColumn(name = "produto_id")
 	private Produto produto;
 	
+	private double qtdItemV;
+	private double precoItemV;
+	private String conferido;
+	
 	public ItemVenda() {}
 
-	public ItemVenda(Long id, Venda venda, Produto produto, double qtdItemV, double precoItemV) {
+	public ItemVenda(Long id, Venda venda, Produto produto, double qtdItemV, double precoItemV, String conferido) {
 		super();
+		this.id = id;
 		this.venda = venda;
 		this.produto = produto;
-		this.id = id;
 		this.qtdItemV = qtdItemV;
 		this.precoItemV = precoItemV;
+		this.conferido = conferido;
 	}
 
 	public double getQtdItemV() {
@@ -78,6 +81,14 @@ public class ItemVenda implements Serializable {
 		this.produto = produto;
 	}
 	
+	public String getConferido() {
+		return conferido;
+	}
+
+	public void setConferido(String conferido) {
+		this.conferido = conferido;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

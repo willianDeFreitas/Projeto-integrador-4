@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.pds1.pi4.dto.FornecedorDTO;
-import com.pds1.pi4.dto.FornecedorDTO;
-import com.pds1.pi4.entidades.Fornecedor;
 import com.pds1.pi4.servicos.ServicoFornecedor;
 
 @RestController

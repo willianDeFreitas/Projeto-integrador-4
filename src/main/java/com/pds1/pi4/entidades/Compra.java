@@ -3,9 +3,7 @@ package com.pds1.pi4.entidades;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,9 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-
-import com.pds1.pi4.entidades.enums.CompraStatus;
 
 @Entity
 public class Compra implements Serializable {
@@ -27,9 +22,9 @@ public class Compra implements Serializable {
 	private Long id;
 
 	
-	private Instant dataReg;
+	private Instant data;
 	
-	private Double totalCompra;
+	private Double totalC;
 	
 	@OneToMany(mappedBy = "compra")
 	private List<ItemCompra> itensCompra = new ArrayList<>();
@@ -43,11 +38,11 @@ public class Compra implements Serializable {
 
 	}
 
-	public Compra(Long id, Instant dataReg, Double totalCompra, Fornecedor fornecedor) {
+	public Compra(Long id, Instant data, Double totalC, Fornecedor fornecedor) {
 		super();
 		this.id = id;
-		this.dataReg = dataReg;
-		this.totalCompra = totalCompra;
+		this.data = data;
+		this.totalC = totalC;
 		this.fornecedor = fornecedor;
 
 	}
@@ -60,17 +55,17 @@ public class Compra implements Serializable {
 		this.id = id;
 	}
 
-	public Instant getDataReg() {
-		return dataReg;
+	public Instant getData() {
+		return data;
 	}
 
 	
-	public Double getTotalCompra() {
-		return totalCompra;
+	public Double getTotalC() {
+		return totalC;
 	}
 
-	public void setTotalCompra(Double totalCompra) {
-		this.totalCompra = totalCompra;
+	public void setTotalC(Double totalC) {
+		this.totalC = totalC;
 	}
 
 	public List<ItemCompra> getItensCompra() {
@@ -81,8 +76,8 @@ public class Compra implements Serializable {
 		this.itensCompra = itensCompra;
 	}
 
-	public void setDataReg(Instant dataReg) {
-		this.dataReg = dataReg;
+	public void setData(Instant data) {
+		this.data = data;
 	}
 
 	public Fornecedor getFornecedor() {
