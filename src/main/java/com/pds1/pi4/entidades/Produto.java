@@ -32,9 +32,7 @@ public class Produto implements Serializable {
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 	
-	@OneToMany(mappedBy = "id.produto")
-	private Set<ItemCompra> itemsCompra = new HashSet<>();
-
+	
 	public Produto() {
 
 	}
@@ -109,14 +107,7 @@ public class Produto implements Serializable {
 	}
 
 	
-	public Set<Compra> getCompras(){
-		Set<Compra> set = new HashSet<>();
-		for(ItemCompra ic : itemsCompra) {
-			set.add(ic.getCompra());
-		}
-		return set;
-	}
-	
+		
 	@Override
 	public int hashCode() {
 		final int prime = 31;

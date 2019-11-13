@@ -109,16 +109,16 @@ public class TestConfig implements CommandLineRunner {
 		
 		repFornecedor.saveAll(Arrays.asList(for1));
 		
-		Compra c1 = new Compra(null, Instant.parse("2019-06-20T19:53:07Z"), CompraStatus.PAGO, for1);
-		Compra c2 = new Compra(null, Instant.parse("2019-07-21T03:42:10Z"), CompraStatus.PAGTO_PENDENTE, for1);
-		Compra c3 = new Compra(null, Instant.parse("2019-07-22T15:21:22Z"), CompraStatus.PAGTO_PENDENTE, for1);
+		Compra c1 = new Compra(null, Instant.parse("2019-06-21T03:42:10Z"), 100.00, for1);
+		Compra c2 = new Compra(null, Instant.parse("2019-07-21T03:42:10Z"), 100.00, for1);
+		Compra c3 = new Compra(null, Instant.parse("2019-08-21T03:42:10Z"), 100.00, for1);
 
 		repCompra.saveAll(Arrays.asList(c1, c2, c3));
 		
-		ItemCompra ic1 = new ItemCompra(c1,p1, 2, p1.getPreco());
-		ItemCompra ic2 = new ItemCompra(c1,p3, 1, p1.getPreco());
-		ItemCompra ic3 = new ItemCompra(c2,p3, 2, p1.getPreco());
-		ItemCompra ic4 = new ItemCompra(c1,p4, 2, p1.getPreco());
+		ItemCompra ic1 = new ItemCompra(null, c1, p1, 3, 90.00);
+		ItemCompra ic2 = new ItemCompra(null, c1, p2, 3, 90.00);
+		ItemCompra ic3 = new ItemCompra(null, c2, p1, 3, 90.00);
+		ItemCompra ic4 = new ItemCompra(null, c2, p4, 3, 90.00);
 
 		repItemCompra.saveAll(Arrays.asList(ic1, ic2, ic3, ic4));
 		

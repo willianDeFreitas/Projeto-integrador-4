@@ -1,11 +1,12 @@
 package com.pds1.pi4.dto;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pds1.pi4.entidades.Compra;
 import com.pds1.pi4.entidades.Fornecedor;
-import com.pds1.pi4.entidades.Usuario;
 import com.pds1.pi4.entidades.enums.CompraStatus;
 
 public class CompraDTO {
@@ -14,21 +15,20 @@ public class CompraDTO {
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant dataReg;
-	private CompraStatus compraStatus;
-	private String fornecedorNome;
+	private Double totalCompra; 
+	private Long fornecedorId;
 	
+	private List<ItemCompraDTO> itensCompra = new ArrayList<>();
 	
-	public CompraDTO() {
-		
-	}
+	public CompraDTO() {}
 
-	public CompraDTO(Long id, Instant dataReg, CompraStatus compraStatus, String fornecedorNome) {
+	public CompraDTO(Long id, Instant dataReg, Double totalCompra, Long fornecedorId, String fornecedorNome, List<ItemCompraDTO> itensCompra) {
 		super();
 		this.id= id;
 		this.dataReg = dataReg;
-		this.compraStatus = compraStatus;
-		this.fornecedorNome = fornecedorNome;
-		
+		this.totalCompra = totalCompra;
+		this.fornecedorId = fornecedorId;
+		this.itensCompra= itensCompra;
 	}
 	
 	public CompraDTO(Compra objComp) {
@@ -37,8 +37,8 @@ public class CompraDTO {
 		}
 		this.id= objComp.getId();
 		this.dataReg = objComp.getDataReg();
-		this.compraStatus =objComp.getCompraStatus();
-		this.fornecedorNome = objComp.getFornecedor().getNome();
+		this.totalCompra = objComp.getTotalCompra();
+		this.fornecedorId = objComp.getFornecedor().getId();
 		
 	}
 
@@ -59,25 +59,33 @@ public class CompraDTO {
 		this.dataReg = dataReg;
 	}
 
-	public CompraStatus getCompraStatus() {
-		return compraStatus;
-	}
-
-	public void setCompraStatus(CompraStatus compraStatus) {
-		this.compraStatus = compraStatus;
-	}
-
-	public String getFornecedorNome() {
-		return fornecedorNome;
-	}
-
-	public void setFornecedorNome(String fornecedorNome) {
-		this.fornecedorNome = fornecedorNome;
-	}
-
 	
+	public Double getTotalCompra() {
+		return totalCompra;
+	}
+
+	public void setTotalCompra(Double totalCompra) {
+		this.totalCompra = totalCompra;
+	}
+
+	public Long getFornecedorId() {
+		return fornecedorId;
+	}
+
+	public void setFornecedorId(Long fornecedorId) {
+		this.fornecedorId = fornecedorId;
+	}
+
+	public List<ItemCompraDTO> getItensCompra() {
+		return itensCompra;
+	}
+
+	public void setItensCompra(List<ItemCompraDTO> itensCompra) {
+		this.itensCompra = itensCompra;
+	}
+
 	public Compra toEntity() {
-		Fornecedor fornecedor =new Fornecedor(null,fornecedorNome, null, null, null, null);
-		return new Compra(id, dataReg, compraStatus, fornecedor);
+		Fornecedor fornecedor =new Fornecedor(fornecedorId,null, null, null, null, null);
+		return new Compra(id, dataReg, totalCompra, fornecedor);
 	}
 }

@@ -69,11 +69,6 @@ private Long id;
 		this.totalV = totalV;
 	}
 	
-	public Venda toEntity() {
-		Cliente cliente = new Cliente(clienteId, null, null, null, null, null);
-		return new Venda(id, data, totalV, cliente);
-	}
-
 	public List<ItemVendaDTO> getItensVenda() {
 		return itensVenda;
 	}
@@ -81,4 +76,11 @@ private Long id;
 	public void setItensVenda(List<ItemVendaDTO> itensVenda) {
 		this.itensVenda = itensVenda;
 	}
+	
+	public Venda toEntity() {
+		Cliente cliente = new Cliente(clienteId, null, null, null, null, null);
+		return new Venda(id, data, totalV, cliente);
+	}
+
+	
 }

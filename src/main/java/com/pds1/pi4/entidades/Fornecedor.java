@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,8 +28,9 @@ private static final long serialVersionUID = 1L;
 	private String email;
 	private String telefone;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy = "fornecedor")
+	
+	//@OneToMany(mappedBy = "fornecedor")
+	@Transient
 	private List<Compra> compras = new ArrayList<>();
 	
 	public Fornecedor() {

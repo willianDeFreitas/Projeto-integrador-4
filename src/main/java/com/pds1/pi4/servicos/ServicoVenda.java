@@ -8,12 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.pds1.pi4.dto.ItemCompraDTO;
 import com.pds1.pi4.dto.ItemVendaDTO;
 import com.pds1.pi4.dto.VendaDTO;
+import com.pds1.pi4.entidades.Compra;
+import com.pds1.pi4.entidades.ItemCompra;
 import com.pds1.pi4.entidades.ItemVenda;
+import com.pds1.pi4.entidades.Produto;
 import com.pds1.pi4.entidades.Venda;
 import com.pds1.pi4.repositorio.RepItemVenda;
+import com.pds1.pi4.repositorio.RepProduto;
 import com.pds1.pi4.repositorio.RepVenda;
 import com.pds1.pi4.servicos.exceptions.DatabaseException;
 import com.pds1.pi4.servicos.exceptions.ResourceNotFoundException;
@@ -30,6 +36,9 @@ public class ServicoVenda {
 	@Autowired
 	private ServicoVenda servItemVenda;
 	
+	@Autowired
+	private RepProduto repProduto;
+	
 	public List<VendaDTO> buscar(){
 		List<Venda> list = repVenda.findAll();
 		return list.stream().map(e -> new VendaDTO(e)).collect(Collectors.toList());
@@ -41,29 +50,23 @@ public class ServicoVenda {
 		return new VendaDTO(objVend);
 	}
 	
+	@Transactional
 	public VendaDTO inserir(VendaDTO dto) {
+
 		Venda obj = dto.toEntity();
 		obj = repVenda.save(obj);
-		setItensVenda(obj, dto);
+		
+		for (ItemVendaDTO itemDTO : dto.getItensVenda()) {
+			Produto produto = repProduto.getOne(itemDTO.getProdutoId());
+			ItemVenda itemVenda = new ItemVenda(null, obj, produto, itemDTO.getQtdItemV(), itemDTO.getValorItemV());
+			obj.getItemsVenda().add(itemVenda);
+			
+		}
+		repItemVenda.saveAll(obj.getItemsVenda());
+				
 		return new VendaDTO(obj);
 	}
 	
-	private void setItensVenda(Venda obj, VendaDTO dtoVenda) {
-		obj.getItemsVenda().clear();
-		List<ItemVendaDTO> itensVenda = dtoVenda.getItensVenda();
-		for (ItemVendaDTO dtoItemVenda : itensVenda) {
-			//ItemVenda itemVenda = repItemVenda.getOne(dtoItemVenda.getId());
-			servItemVenda.inserirItemVenda(dtoItemVenda);
-			//obj.getItemsVenda().add(itemVenda);
-		}
-	}
-
-	private void inserirItemVenda(ItemVendaDTO dtoItemVenda) {
-		ItemVenda objItemVenda =  dtoItemVenda.toEntity();
-		repItemVenda.save(objItemVenda);
-		//return new ItemVendaDTO(objItemVenda);
-	}
-
 	public void deletar(Long id) {
 		try {
 			repVenda.deleteById(id);
@@ -72,5 +75,11 @@ public class ServicoVenda {
 			}catch (DataIntegrityViolationException e){
 				throw new DatabaseException(e.getMessage());
 				}
+	}
+
+	public List<ItemVendaDTO> buscarItensVenda(Long id) {
+		Venda venda = repVenda.getOne(id);
+		List<ItemVenda> list = venda.getItemsVenda();
+		return list.stream().map(e -> new ItemVendaDTO(e)).collect(Collectors.toList());
 	}
 }

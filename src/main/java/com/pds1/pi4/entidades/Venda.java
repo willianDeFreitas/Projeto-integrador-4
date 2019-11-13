@@ -2,8 +2,8 @@ package com.pds1.pi4.entidades;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +28,7 @@ public class Venda implements Serializable {
 	private Cliente cliente;
 	
 	@OneToMany(mappedBy = "venda")
-	private Set<ItemVenda> itemsVenda = new HashSet<>();
+	private List<ItemVenda> itemsVenda = new ArrayList<>();
 	
 	public Venda() {
 		
@@ -75,7 +75,7 @@ public class Venda implements Serializable {
 		this.cliente = cliente;
 	}
 	
-	public Set<ItemVenda> getItemsVenda() {
+	public List<ItemVenda> getItemsVenda() {
 		return itemsVenda;
 	}
 

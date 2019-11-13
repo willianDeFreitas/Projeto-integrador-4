@@ -2,7 +2,9 @@ package com.pds1.pi4.entidades;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -27,25 +29,27 @@ public class Compra implements Serializable {
 	
 	private Instant dataReg;
 	
-	private Integer compraStatus;
-
-	@OneToMany(mappedBy = "id.compra")
-	private Set<ItemCompra> itemsCompra = new HashSet<>();
+	private Double totalCompra;
+	
+	@OneToMany(mappedBy = "compra")
+	private List<ItemCompra> itensCompra = new ArrayList<>();
 	
 	@ManyToOne
 	@JoinColumn(name = "fornecedor_id")
 	private Fornecedor fornecedor;
 	
+	
 	public Compra() {
 
 	}
 
-	public Compra(Long id, Instant dataReg, CompraStatus compraStatus, Fornecedor fornecedor) {
+	public Compra(Long id, Instant dataReg, Double totalCompra, Fornecedor fornecedor) {
 		super();
 		this.id = id;
 		this.dataReg = dataReg;
-		setCompraStatus(compraStatus);
+		this.totalCompra = totalCompra;
 		this.fornecedor = fornecedor;
+
 	}
 
 	public Long getId() {
@@ -60,20 +64,25 @@ public class Compra implements Serializable {
 		return dataReg;
 	}
 
+	
+	public Double getTotalCompra() {
+		return totalCompra;
+	}
+
+	public void setTotalCompra(Double totalCompra) {
+		this.totalCompra = totalCompra;
+	}
+
+	public List<ItemCompra> getItensCompra() {
+		return itensCompra;
+	}
+
+	public void setItensCompra(List<ItemCompra> itensCompra) {
+		this.itensCompra = itensCompra;
+	}
+
 	public void setDataReg(Instant dataReg) {
 		this.dataReg = dataReg;
-	}
-
-	
-	public CompraStatus getCompraStatus() {
-		return CompraStatus.valueOf(compraStatus);
-	}
-
-	public void setCompraStatus(CompraStatus compraStatus) {
-		if(compraStatus != null) {
-		this.compraStatus = compraStatus.getCode();
-		
-		}
 	}
 
 	public Fornecedor getFornecedor() {
@@ -84,8 +93,8 @@ public class Compra implements Serializable {
 		this.fornecedor = fornecedor;
 	}
 
-	public Set<ItemCompra> getIntemsCompra(){
-		return itemsCompra;
+	public List<ItemCompra> getIntensCompra(){
+		return itensCompra;
 	}
 	
 	@Override

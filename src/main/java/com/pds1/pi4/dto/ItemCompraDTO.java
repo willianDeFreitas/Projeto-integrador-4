@@ -2,32 +2,29 @@ package com.pds1.pi4.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.EmbeddedId;
-
 import com.pds1.pi4.entidades.Compra;
 import com.pds1.pi4.entidades.ItemCompra;
 import com.pds1.pi4.entidades.Produto;
-import com.pds1.pi4.entidades.pk.ItemCompraPk;
 
 public class ItemCompraDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-			
-		private Integer qtd;
-		private double preco;
+		private Long id;	
+		private Integer qtdItemC;
+		private Double valorItemC;
 		private Long produtoId;
-		private String produtoNome;
+		private Long compraId;
 
 		public ItemCompraDTO() {
 
 		}
 
-		public ItemCompraDTO(Integer qtd, double preco, Long produtoId, String produtoNome) {
+		public ItemCompraDTO(Long id, Integer qtdItemC, double valorItemC, Long produtoId, Long compraId) {
 			super();
-			this.qtd = qtd;
-			this.preco = preco;
+			this.qtdItemC = qtdItemC;
+			this.valorItemC = valorItemC;
 			this.produtoId = produtoId;
-			this.produtoNome = produtoNome;
+			this.compraId = compraId;
 			
 		}
 		
@@ -35,27 +32,36 @@ public class ItemCompraDTO implements Serializable{
 			if (objComp.getProduto()==null) {
 				throw new IllegalArgumentException("O produto e nulo");
 			}
-			this.qtd = objComp.getQtdItemC();
-			this.preco = objComp.getPrecoItemC();
+			this.id = objComp.getId();
+			this.qtdItemC = objComp.getQtdItemC();
+			this.valorItemC = objComp.getPrecoItemC();
 			this.produtoId = objComp.getProduto().getId();
-			this.produtoNome = objComp.getProduto().getNome();
+			this.compraId = objComp.getCompra().getId();
 			
 		}
 
-		public Integer getQtd() {
-			return qtd;
+		public Long getId() {
+			return id;
 		}
 
-		public void setQtd(Integer qtd) {
-			this.qtd = qtd;
+		public void setId(Long id) {
+			this.id = id;
 		}
 
-		public double getPreco() {
-			return preco;
+		public Integer getQtdItemC() {
+			return qtdItemC;
 		}
 
-		public void setPreco(double preco) {
-			this.preco = preco;
+		public void setQtdItemC(Integer qtdItemC) {
+			this.qtdItemC = qtdItemC;
+		}
+
+		public Double getValorItemC() {
+			return valorItemC;
+		}
+
+		public void setValorItemC(Double valorItemC) {
+			this.valorItemC = valorItemC;
 		}
 
 		public Long getProdutoId() {
@@ -66,12 +72,18 @@ public class ItemCompraDTO implements Serializable{
 			this.produtoId = produtoId;
 		}
 
-		public String getProdutoNome() {
-			return produtoNome;
+		public Long getCompraId() {
+			return compraId;
 		}
 
-		public void setProdutoNome(String produtoNome) {
-			this.produtoNome = produtoNome;
+		public void setCompraId(Long compraId) {
+			this.compraId = compraId;
+		}
+
+		public ItemCompra toEntity() {
+			Compra compra = new Compra(compraId, null, null, null);
+			Produto produto = new Produto(produtoId, null, null, 0.0, 0.0, null, null);
+			return new ItemCompra(id, compra, produto, qtdItemC, valorItemC);
 		}
 		
 }
