@@ -18,7 +18,9 @@ import org.springframework.stereotype.Service;
 
 import com.pds1.pi4.dto.InserirUsuarioDTO;
 import com.pds1.pi4.dto.UsuarioDTO;
+import com.pds1.pi4.entidades.Funcao;
 import com.pds1.pi4.entidades.Usuario;
+import com.pds1.pi4.repositorio.RepFuncao;
 import com.pds1.pi4.repositorio.RepUsuario;
 import com.pds1.pi4.servicos.exceptions.DatabaseException;
 import com.pds1.pi4.servicos.exceptions.ResourceNotFoundException;
@@ -31,6 +33,9 @@ public class ServicoUsuario implements UserDetailsService{
 	
 	@Autowired
 	private RepUsuario repUsuario;
+	
+	@Autowired
+	private RepFuncao repFuncao;
 	
 	public List<UsuarioDTO> buscar(){
 		List<Usuario> list= repUsuario.findAll();
@@ -46,6 +51,14 @@ public class ServicoUsuario implements UserDetailsService{
 	public UsuarioDTO inserir(InserirUsuarioDTO dto) {
 		Usuario objUs = dto.toEntity();
 		objUs.setSenha(senhaEncoder.encode(dto.getSenha()));
+		
+		List<Funcao> listFuncoes= repFuncao.findAll();
+		for (Funcao funcao : listFuncoes) {
+			if (funcao.getId() == dto.getFuncao()) {
+				objUs.getFuncoes().add(funcao);				
+			}
+		}
+		
 		objUs = repUsuario.save(objUs);
 		return new UsuarioDTO(objUs);
 	}

@@ -21,17 +21,19 @@ public class InserirUsuarioDTO implements Serializable{
 	@Email(message= "Email invalido")
 	private String email;
 	private String senha;
+	private Long funcao;
 	
 	public InserirUsuarioDTO() {
 		
 	}
 
-	public InserirUsuarioDTO(Long id, String nome, String email, String senha) {
+	public InserirUsuarioDTO(Long id, String nome, String email, String senha, Long funcao) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
+		this.funcao = funcao;
 	}
 	
 	public InserirUsuarioDTO(Usuario objUs) {
@@ -73,6 +75,14 @@ public class InserirUsuarioDTO implements Serializable{
 		this.senha = senha;
 	}
 
+	public Long getFuncao() {
+		return funcao;
+	}
+
+	public void setFuncao(Long funcao) {
+		this.funcao = funcao;
+	}
+	
 	public Usuario toEntity() {
 		return new Usuario(id, nome, email, senha);
 	}
