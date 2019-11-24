@@ -87,8 +87,9 @@ public class TestConfig implements CommandLineRunner {
 		Usuario u1 = new Usuario(null, "Pedro Adm", "pedro@gmail.com", senhaEncode.encode("123456"));
 		Usuario u2 = new Usuario(null, "Daniela Sec", "daniela@gmail.com", senhaEncode.encode("123456"));
 		Usuario u3 = new Usuario(null, "Mateus Est", "mateus@gmail.com", senhaEncode.encode("123456"));
+		Usuario u4 = new Usuario(null, "Willian Adm", "willian@gmail.com", senhaEncode.encode("123456"));
 
-		repUsuario.saveAll(Arrays.asList(u1, u2, u3));
+		repUsuario.saveAll(Arrays.asList(u1, u2, u3, u4));
 		
 		Funcao f1 = new Funcao(null, "ROLE_ADMIN");
 		Funcao f2 = new Funcao(null, "ROLE_SECRET");
@@ -101,8 +102,11 @@ public class TestConfig implements CommandLineRunner {
 		u1.getFuncoes().add(f3);
 		u2.getFuncoes().add(f2);
 		u3.getFuncoes().add(f3);
+		u4.getFuncoes().add(f1);
+		u4.getFuncoes().add(f2);
+		u4.getFuncoes().add(f3);
 		
-		repUsuario.saveAll(Arrays.asList(u1, u2, u3));
+		repUsuario.saveAll(Arrays.asList(u1, u2, u3, u4));
 		
 		Fornecedor for1 = new Fornecedor(null, "Areia total", "11111111111", "rua mangue, 201, jb", "areiatotal@hotmail.com", "11111111");
 		
