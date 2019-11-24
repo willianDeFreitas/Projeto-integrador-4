@@ -116,20 +116,25 @@ public class TestConfig implements CommandLineRunner {
 		
 		ItemCompra ic1 = new ItemCompra(null, c1, p1, 3, 90.00, "N");
 		ItemCompra ic2 = new ItemCompra(null, c1, p2, 3, 90.00, "N");
-		ItemCompra ic3 = new ItemCompra(null, c2, p1, 3, 90.00, "N");
-		ItemCompra ic4 = new ItemCompra(null, c2, p4, 3, 90.00, "N");
+		ItemCompra ic3 = new ItemCompra(null, c2, p1, 3, 90.00, "S");
+		ItemCompra ic4 = new ItemCompra(null, c2, p4, 3, 90.00, "S");
 
 		repItemCompra.saveAll(Arrays.asList(ic1, ic2, ic3, ic4));
 		
 		Cliente cli1 = new Cliente(null, "Mario", "00011122233", "rua E, 100, bairro ae", "mario@hotmail.com", "34999887744");
-		repCliente.saveAll(Arrays.asList(cli1));
+		Cliente cli2 = new Cliente(null, "Maria", "00011122233", "rua E, 100, bairro ae", "mario@hotmail.com", "34999887744");
+		Cliente cli3 = new Cliente(null, "Jorge", "00011122233", "rua E, 100, bairro ae", "mario@hotmail.com", "34999887744");
+		Cliente cli4 = new Cliente(null, "Lucas", "00011122233", "rua E, 100, bairro ae", "mario@hotmail.com", "34999887744");
+		Cliente cli5 = new Cliente(null, "Carlos", "00011122233", "rua E, 100, bairro ae", "mario@hotmail.com", "34999887744");
+		repCliente.saveAll(Arrays.asList(cli1,cli2,cli3,cli4,cli5));
 		
 		Venda v1 = new Venda(null, Instant.parse("2019-06-20T19:53:07Z"), 100.0, cli1);
 		repVenda.saveAll(Arrays.asList(v1));
 		
 		
 		ItemVenda itv = new ItemVenda(null, v1, p1, 100.0, 100.0, "N");
-		repItemVenda.saveAll(Arrays.asList(itv));
+		ItemVenda itv2 = new ItemVenda(null, v1, p1, 100.0, 100.0, "S");
+		repItemVenda.saveAll(Arrays.asList(itv, itv2));
 		
 		v1.getItemsVenda().add(itv);
 		repVenda.saveAll(Arrays.asList(v1));
