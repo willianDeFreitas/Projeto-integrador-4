@@ -29,7 +29,7 @@ public class ServicoItemVenda {
 	public ItemVendaDTO atualizar(Long id, ItemVendaDTO dto) {
 		try {
 		ItemVenda  objUs = repItemVenda.getOne(id);
-		atualizarData(objUs, dto);
+		atualizarDados(objUs, dto);
 		objUs= repItemVenda.save(objUs);
 		return new ItemVendaDTO(objUs);
 		}catch(EntityNotFoundException e) {
@@ -37,7 +37,7 @@ public class ServicoItemVenda {
 		}
 	}
 	
-	private void atualizarData(ItemVenda objUs, ItemVendaDTO dto) {
+	private void atualizarDados(ItemVenda objUs, ItemVendaDTO dto) {
 		objUs.setConferido(dto.getConferido());
 	}
 }

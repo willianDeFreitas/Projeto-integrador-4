@@ -29,10 +29,15 @@ public class ServicoItemCompra {
 	public ItemCompraDTO atualizar(Long id, ItemCompraDTO dto) {
 		try {
 		ItemCompra objUs = repItemCompra.getOne(id);
+		atualizarDados(objUs, dto);
 		objUs= repItemCompra.save(objUs);
 		return new ItemCompraDTO(objUs);
 		}catch(EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
+	}
+	
+	private void atualizarDados(ItemCompra objUs, ItemCompraDTO dto) {
+		objUs.setConferido(dto.getConferido());
 	}
 }
