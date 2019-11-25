@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pds1.pi4.dto.ItemVendaDTO;
+import com.pds1.pi4.dto.UsuarioDTO;
 import com.pds1.pi4.servicos.ServicoItemVenda;
 
 @RestController
