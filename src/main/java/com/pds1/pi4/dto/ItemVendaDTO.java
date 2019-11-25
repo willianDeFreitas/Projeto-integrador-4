@@ -47,6 +47,8 @@ public class ItemVendaDTO {
 		this.produtoId = objVend.getProduto().getId();
 		this.vendaId = objVend.getVenda().getId();
 		this.conferido = objVend.getConferido();
+		this.produto = objVend.getProduto().getNome();
+		this.cliente = objVend.getVenda().getCliente().getNome();
 	}
 
 	public Long getId() {
