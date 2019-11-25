@@ -12,6 +12,8 @@ public class ItemVendaDTO {
 	private Long produtoId;
 	private Long vendaId;
 	private String conferido;
+	private String produto;
+	private String cliente;
 	
 	public ItemVendaDTO() {}
 
@@ -22,6 +24,16 @@ public class ItemVendaDTO {
 		this.produtoId = produtoId;
 		this.vendaId = vendaId;
 		this.conferido = conferido;
+	}
+	
+	public ItemVendaDTO(Long id, Double qtdItemV, Double valorItemV, Long produtoId, Long vendaId, String conferido, String produto, String cliente) {
+		this.qtdItemV = qtdItemV;
+		this.valorItemV = valorItemV;
+		this.produtoId = produtoId;
+		this.vendaId = vendaId;
+		this.conferido = conferido;
+		this.produto = produto;
+		this.cliente = cliente;
 	}
 	
 	public ItemVendaDTO(ItemVenda objVend) {
@@ -83,6 +95,22 @@ public class ItemVendaDTO {
 
 	public void setConferido(String conferido) {
 		this.conferido = conferido;
+	}
+
+	public String getProduto() {
+		return produto;
+	}
+
+	public void setProduto(String produto) {
+		this.produto = produto;
+	}
+
+	public String getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(String cliente) {
+		this.cliente = cliente;
 	}
 
 	public ItemVenda toEntity() {

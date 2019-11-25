@@ -11,7 +11,7 @@ import com.pds1.pi4.entidades.ItemVenda;
 public interface RepItemVenda extends JpaRepository<ItemVenda, Long>{
 	
 	@Transactional(readOnly = true)
-	@Query(value = "SELECT * FROM item_venda it "
+	@Query(value = "SELECT it.*, pr.nome as produto, cl.nome as cliente FROM item_venda it "
 			+ "inner join produto pr on pr.id = it.produto_id"
 			+ "inner join venda ve on ve.id = it.venda_id"
 			+ "inner join cliente cl on cl.id = ve.cliente_id"
