@@ -77,7 +77,7 @@ public class ServicoProduto {
 			objPro.setVol(dto.getVol());			
 		}
 		
-		if (dto.getCategoriaId() > 0) {
+		if (dto.getCategoriaId() != null) {
 			Categoria cat = repCategoria.getOne(dto.getCategoriaId());
 			objPro.setCategoria(cat);			
 		}
