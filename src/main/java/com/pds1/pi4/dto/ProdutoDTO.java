@@ -15,7 +15,7 @@ public class ProdutoDTO {
 	private double preco;
 	private Long categoriaId;
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'z'", timezone = "GMT")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant datareg;
 
 	public ProdutoDTO(Long id, String nome, String vol, double qtd, double preco, Instant datareg, Long categoriaId) {
