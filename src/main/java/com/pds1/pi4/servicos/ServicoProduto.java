@@ -61,7 +61,9 @@ public class ServicoProduto {
 	}
 	
 	private void atualizarData(Produto objPro, ProdutoDTO dto) {
-		objPro.setNome(dto.getNome());
+		if (!"".equals(dto.getNome())) {
+			objPro.setNome(dto.getNome());			
+		}
 		objPro.setPreco(dto.getPreco());
 		objPro.setDatareg(dto.getDatareg());
 		objPro.setQtd(dto.getQtd());
