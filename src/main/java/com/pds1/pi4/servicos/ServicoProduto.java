@@ -64,13 +64,25 @@ public class ServicoProduto {
 		if (dto.getNome() != null) {
 			objPro.setNome(dto.getNome());			
 		}
-		objPro.setPreco(dto.getPreco());
-		objPro.setDatareg(dto.getDatareg());
+		
+		if (dto.getPreco() > 0.0) {
+			objPro.setPreco(dto.getPreco());			
+		}
+		
+		if (dto.getDatareg() != null) {
+			objPro.setDatareg(dto.getDatareg());			
+		}
+		
+		if (dto.getVol() != null) {
+			objPro.setVol(dto.getVol());			
+		}
+		
+		if (dto.getCategoriaId() > 0) {
+			Categoria cat = repCategoria.getOne(dto.getCategoriaId());
+			objPro.setCategoria(cat);			
+		}
+		
 		objPro.setQtd(dto.getQtd());
-		objPro.setPreco(dto.getPreco());
-		objPro.setVol(dto.getVol());
-		Categoria cat = repCategoria.getOne(dto.getCategoriaId());
-		objPro.setCategoria(cat);
 	}
 
 	public void excluir(Long id) {
