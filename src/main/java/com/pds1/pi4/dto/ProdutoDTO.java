@@ -8,15 +8,14 @@ import com.pds1.pi4.entidades.Produto;
 
 public class ProdutoDTO {
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	private Instant datareg;
 	private Long id;
 	private String nome;
 	private String vol;
 	private double qtd;
 	private double preco;
 	private Long categoriaId;
-
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-	private Instant datareg;
 
 	public ProdutoDTO(Long id, String nome, String vol, double qtd, double preco, Instant datareg, Long categoriaId) {
 		super();
